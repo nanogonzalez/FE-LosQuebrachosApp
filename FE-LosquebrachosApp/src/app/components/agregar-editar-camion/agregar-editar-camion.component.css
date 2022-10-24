@@ -1,0 +1,29 @@
+
+.logo{
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+img{
+    width: 30%;
+}
+.container{
+    margin: 0 25%;
+}
+.card{
+    margin-top: 10px;
+    text-align: center;
+}
+mat-card-subtitle{
+    text-align: left;
+    margin-bottom: 20px;
+    margin-left: 35px;
+}
+mat-form-field{
+    width: 90%;
+}
+.btnAceptar{
+    margin-right: 10px;
+}

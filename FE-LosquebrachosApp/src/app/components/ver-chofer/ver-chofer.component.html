@@ -1,0 +1,17 @@
+<div class="logo">
+    <img src="assets/images/logo.jpg">
+</div>
+
+<div *ngIf="chofer != null" class="container">
+    <mat-card class="card mat-elevation-z8">
+       <mat-card-title>Chofer</mat-card-title>
+       <mat-card-content>
+        <p><strong>Nombre:</strong> {{chofer.nombre}}</p>
+        <p><strong>Apellido:</strong> {{chofer.apellido}}</p>
+        <p><strong>Cuit:</strong> {{chofer.cuit}}</p>
+       </mat-card-content>
+       <mat-card-actions>
+        <button mat-raised-button routerLink="/listChofer" class="mat-elevation-z4">Volver</button>
+       </mat-card-actions>
+    </mat-card>
+</div>

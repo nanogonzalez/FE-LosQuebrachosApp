@@ -1,0 +1,19 @@
+
+<div class="logo">
+    <img src="assets/images/logo.jpg">
+</div>
+
+<div *ngIf="camion != null" class="container">
+    <mat-card class="card mat-elevation-z8">
+       <mat-card-title>Vehículo</mat-card-title>
+       <mat-card-content>
+        <p><strong>Chasis:</strong> {{camion.chasis}}</p>
+        <p><strong>Acoplado:</strong> {{camion.acoplado}}</p>
+        <p><strong>Tipo:</strong> {{camion.tipo}}</p>
+        <p><strong>Capacidad:</strong> {{camion.capacidadTN}}</p>
+       </mat-card-content>
+       <mat-card-actions>
+        <button mat-raised-button routerLink="/listVehiculo" class="mat-elevation-z4">Volver</button>
+       </mat-card-actions>
+    </mat-card>
+</div>

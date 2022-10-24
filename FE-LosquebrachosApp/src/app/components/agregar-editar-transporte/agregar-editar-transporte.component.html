@@ -1,0 +1,41 @@
+<div class="logo">
+    <img src="assets/images/logo.jpg">
+</div>
+<div class="container">
+ 
+    <div class="title">
+        <h1>{{operacion}} Transporte</h1>
+    </div>
+
+    <mat-card class="card mat-elevation-z8">
+        <mat-card-subtitle>
+           Información del Transporte
+        </mat-card-subtitle>
+        <form [formGroup]="form" (ngSubmit)="agregarEditarTransporte()">
+            <mat-grid-list cols="1" rowHeight="80px">
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nombre:</mat-label>
+                        <input formControlName="nombre" matInput autocomplete="off">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Apellido:</mat-label>
+                        <input formControlName="apellido" matInput autocomplete="off">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Cuit:</mat-label>
+                        <input type="number" formControlName="cuit" matInput autocomplete="off">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <button [disabled]="form.invalid" type="submit" class="btnAceptar" mat-raised-button color="primary">Aceptar</button>
+                    <button mat-raised-button routerLink="/listTransporte">Volver</button>
+                </mat-grid-tile>
+              </mat-grid-list>
+        </form>
+    </mat-card>
+</div>

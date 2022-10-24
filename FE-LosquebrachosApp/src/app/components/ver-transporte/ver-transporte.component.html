@@ -1,0 +1,17 @@
+<div class="logo">
+    <img src="assets/images/logo.jpg">
+</div>
+
+<div *ngIf="transporte != null" class="container">
+    <mat-card class="card mat-elevation-z8">
+       <mat-card-title>Transporte</mat-card-title>
+       <mat-card-content>
+        <p><strong>Nombre:</strong> {{transporte.nombre}}</p>
+        <p><strong>Apellido:</strong> {{transporte.apellido}}</p>
+        <p><strong>Cuit:</strong> {{transporte.cuit}}</p>
+       </mat-card-content>
+       <mat-card-actions>
+        <button mat-raised-button routerLink="/listTransporte" class="mat-elevation-z4">Volver</button>
+       </mat-card-actions>
+    </mat-card>
+</div>

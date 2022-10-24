@@ -1,0 +1,47 @@
+<div class="logo">
+    <img src="assets/images/logo.jpg">
+</div>
+<div class="container">
+ 
+    <div class="title">
+        <h1>{{operacion}} Vehículo</h1>
+    </div>
+
+    <mat-card class="card mat-elevation-z8">
+        <mat-card-subtitle>
+           Información del Vehículo
+        </mat-card-subtitle>
+        <form [formGroup]="form" (ngSubmit)="agregarEditarVehiculo()">
+            <mat-grid-list cols="1" rowHeight="80px">
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Chasis:</mat-label>
+                        <input formControlName="chasis" matInput autocomplete="off">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Acoplado:</mat-label>
+                        <input formControlName="acoplado" matInput autocomplete="off">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Tipo:</mat-label>
+                        <input formControlName="tipo" matInput autocomplete="off">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Capacidad:</mat-label>
+                        <input type="number" formControlName="capacidadTN" matInput autocomplete="off">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <button [disabled]="form.invalid" type="submit" class="btnAceptar" mat-raised-button color="primary">Aceptar</button>
+                    <button mat-raised-button routerLink="/listVehiculo">Volver</button>
+                </mat-grid-tile>
+              </mat-grid-list>
+        </form>
+    </mat-card>
+</div>
