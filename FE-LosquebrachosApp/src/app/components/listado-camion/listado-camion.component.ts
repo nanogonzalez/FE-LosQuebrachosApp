@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Camion } from 'src/app/interfaces/camion';
 import { CamionService } from 'src/app/services/camion.service';
+import { ConfirmBoxService } from 'src/app/services/confirm-box.service';
 
 @Component({
   selector: 'app-listado-camion',
@@ -19,7 +20,7 @@ export class ListadoCamionComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _snackBar: MatSnackBar, private _vehiculoService: CamionService) { }
+  constructor(private _snackBar: MatSnackBar, private _vehiculoService: CamionService, private _dialogService: ConfirmBoxService) { }
 
   ngOnInit(): void {
     this.obtenerVehiculo();
@@ -45,11 +46,17 @@ export class ListadoCamionComponent implements OnInit, AfterViewInit {
   }
 
   eliminarVehiculo(id: number){
-     this._vehiculoService.deleteVehiculo(id).subscribe(()=>{
+
+    this._dialogService.openConfirmDialog('Vehículo')
+     .afterClosed().subscribe(res=>{
+      if(res){
+        this._vehiculoService.deleteVehiculo(id).subscribe(()=>{
         this.mensajeExito();
         this.obtenerVehiculo();
-     })
-  }
+      })
+    }
+   })
+}
 
 
   mensajeExito(){

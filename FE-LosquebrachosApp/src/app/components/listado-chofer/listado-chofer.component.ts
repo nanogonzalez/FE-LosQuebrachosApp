@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Chofer } from 'src/app/interfaces/chofer';
 import { ChoferService } from 'src/app/services/chofer.service';
+import { ConfirmBoxService } from 'src/app/services/confirm-box.service';
 
 @Component({
   selector: 'app-listado-chofer',
@@ -20,7 +21,7 @@ export class ListadoChoferComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _snackBar: MatSnackBar, private _choferService: ChoferService) { }
+  constructor(private _snackBar: MatSnackBar, private _choferService: ChoferService, private _dialogService: ConfirmBoxService) { }
 
   ngOnInit(): void {
     this.obtenerChofer();
@@ -46,11 +47,19 @@ export class ListadoChoferComponent implements OnInit, AfterViewInit {
   } 
 
   eliminarChofer(id: number){
-    this._choferService.deleteChofer(id).subscribe(()=>{    
-        this.mensajeExito();
-        this.obtenerChofer();
-    })
+    
+    this._dialogService.openConfirmDialog('Chofer')
+     .afterClosed().subscribe(res=>{
+      if(res){
+        
+        this._choferService.deleteChofer(id).subscribe(()=>{    
+          this.mensajeExito();
+          this.obtenerChofer();
+        })
+      }
+     })
   }
+
   
   mensajeExito(){
     this._snackBar.open('El Chofer fue eliminado con éxito!', '' ,{

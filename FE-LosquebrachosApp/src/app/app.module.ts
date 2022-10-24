@@ -14,6 +14,7 @@ import { SharedModule } from './shared/shared.module';
 import { ListadoCamionComponent } from './components/listado-camion/listado-camion.component';
 import { VerCamionComponent } from './components/ver-camion/ver-camion.component';
 import { AgregarEditarCamionComponent } from './components/agregar-editar-camion/agregar-editar-camion.component';
+import { MatConfirmBoxComponent } from './mat-confirm-box/mat-confirm-box.component';
 
 
 @NgModule({
@@ -28,7 +29,9 @@ import { AgregarEditarCamionComponent } from './components/agregar-editar-camion
     MenuComponent,
     ListadoCamionComponent,
     VerCamionComponent,
-    AgregarEditarCamionComponent
+    AgregarEditarCamionComponent,
+    MatConfirmBoxComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ import { AgregarEditarCamionComponent } from './components/agregar-editar-camion
  
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ListadoTransporteComponent, MatConfirmBoxComponent]
 })
 export class AppModule { }

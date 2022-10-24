@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Transporte } from 'src/app/interfaces/transporte';
+import { ConfirmBoxService } from 'src/app/services/confirm-box.service';
 import { TransporteService } from 'src/app/services/transporte.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class ListadoTransporteComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   
-  constructor(private _snackBar: MatSnackBar, private _transporteService: TransporteService) { }
+  constructor(private _snackBar: MatSnackBar, private _transporteService: TransporteService, private _dialogService: ConfirmBoxService) { }
 
   
   ngOnInit(): void {
@@ -50,12 +51,18 @@ export class ListadoTransporteComponent implements OnInit, AfterViewInit {
   }
 
   eliminarTransporte(id: number){
+  
+      
 
-   this._transporteService.deleteTransporte(id).subscribe(()=>{
-      this.mensajeExito();
-      this.obtenerTransporte();
-   })
-
+     this._dialogService.openConfirmDialog('Transporte')
+     .afterClosed().subscribe(res=>{
+      if(res){
+        this._transporteService.deleteTransporte(id).subscribe(()=>{
+          this.mensajeExito();
+          this.obtenerTransporte();
+          })
+      }
+     })
   }
 
   mensajeExito(){
