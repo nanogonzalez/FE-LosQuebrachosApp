@@ -2,9 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AgregarEditarCamionComponent } from './components/agregar-editar-camion/agregar-editar-camion.component';
 import { AgregarEditarChoferComponent } from './components/agregar-editar-chofer/agregar-editar-chofer.component';
+import { AgregarEditarOrdenDeCargaComponent } from './components/agregar-editar-orden-de-carga/agregar-editar-orden-de-carga.component';
 import { AgregarEditarTransporteComponent } from './components/agregar-editar-transporte/agregar-editar-transporte.component';
+
 import { ListadoCamionComponent } from './components/listado-camion/listado-camion.component';
 import { ListadoChoferComponent } from './components/listado-chofer/listado-chofer.component';
+
+import { ListadoOrdenDeCargaComponent } from './components/listado-orden-de-carga/listado-orden-de-carga.component';
 import { ListadoTransporteComponent } from './components/listado-transporte/listado-transporte.component';
 import { VerCamionComponent } from './components/ver-camion/ver-camion.component';
 import { VerChoferComponent } from './components/ver-chofer/ver-chofer.component';
@@ -27,6 +31,9 @@ const routes: Routes = [
 { path: 'agregarVehiculo', component: AgregarEditarCamionComponent },
 { path: 'verVehiculo/:id', component: VerCamionComponent },
 { path: 'editarVehiculo/:id', component: AgregarEditarCamionComponent },
+{ path: 'agregarOrdenDeCarga', component: AgregarEditarOrdenDeCargaComponent },
+{ path: 'listOrdenDeCarga', component: ListadoOrdenDeCargaComponent },
+{ path: 'editarOrdenDeCarga/:id', component: AgregarEditarOrdenDeCargaComponent },
 { path: '**', redirectTo: 'menuLosQuebrachos', pathMatch: 'full' },
 ];
 

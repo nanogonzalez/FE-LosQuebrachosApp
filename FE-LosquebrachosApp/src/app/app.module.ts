@@ -16,6 +16,10 @@ import { VerCamionComponent } from './components/ver-camion/ver-camion.component
 import { AgregarEditarCamionComponent } from './components/agregar-editar-camion/agregar-editar-camion.component';
 import { MatConfirmBoxComponent } from './mat-confirm-box/mat-confirm-box.component';
 
+import { ListadoOrdenDeCargaComponent } from './components/listado-orden-de-carga/listado-orden-de-carga.component';
+import { AgregarEditarOrdenDeCargaComponent } from './components/agregar-editar-orden-de-carga/agregar-editar-orden-de-carga.component';
+
+
 
 @NgModule({
   declarations: [
@@ -31,6 +35,9 @@ import { MatConfirmBoxComponent } from './mat-confirm-box/mat-confirm-box.compon
     VerCamionComponent,
     AgregarEditarCamionComponent,
     MatConfirmBoxComponent,
+    ListadoOrdenDeCargaComponent,
+    AgregarEditarOrdenDeCargaComponent,
+    
   
   ],
   imports: [

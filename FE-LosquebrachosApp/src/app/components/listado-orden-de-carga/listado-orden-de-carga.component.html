@@ -1,0 +1,68 @@
+<div class="logo">
+    <img src="assets/images/logo.jpg">
+</div>
+
+<div class="container">
+
+    <div class="title">
+        <h1>Órdenes De Carga</h1>
+    </div>
+
+    <mat-form-field appearance="standard">
+        <mat-label>Filtrar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input autocomplete="off">
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+        <ng-container matColumnDef="destinoCarga">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header > Destino de Carga </th>
+            <td mat-cell *matCellDef="let element"> {{element.destinoCarga}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="destinoDescarga" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Destino de Descarga </th>
+            <td mat-cell *matCellDef="let element"> {{element.destinoDescarga}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="diaCarga" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Día de Carga </th>
+            <td mat-cell *matCellDef="let element"> {{element.diaCarga}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="horaCarga" >
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora de Carga </th>
+              <td mat-cell *matCellDef="let element"> {{element.horaCarga}} </td>
+            </ng-container>
+  
+          <ng-container matColumnDef="tipoMercaderia" >
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de Mercaderia </th>
+              <td mat-cell *matCellDef="let element"> {{element.tipoMercaderia}} </td>
+          </ng-container>
+
+        <ng-container matColumnDef="acciones" >
+            <th mat-header-cell *matHeaderCellDef > 
+                <button class="agregar" routerLink="/agregarOrdenDeCarga" matTooltip="Agregar Orden De Carga" mat-raised-button color="primary">Agregar</button> 
+            </th>
+            <td mat-cell *matCellDef="let element"> 
+                <mat-icon routerLink="/editarOrdenDeCarga/{{element.id}}" matTooltip="Editar" class="edit" fontIcon="edit"></mat-icon>    
+                <mat-icon (click)="eliminarOrdenDeCarga(element.id)"  matTooltip="Eliminar" class="delete" fontIcon="delete"></mat-icon>     
+            </td>
+          </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      
+      <div class="footer">
+
+        <button class="agregar" routerLink="/menuLosquebrachos" matTooltip="Volver al menú principal" mat-raised-button color="primary">Volver</button>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons 
+        aria-label="Select page of periodic elements">
+        </mat-paginator>
+
+      </div>
+      
+</div>
