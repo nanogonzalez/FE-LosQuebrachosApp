@@ -10,6 +10,8 @@ import { ListadoChoferComponent } from './components/listado-chofer/listado-chof
 
 import { ListadoOrdenDeCargaComponent } from './components/listado-orden-de-carga/listado-orden-de-carga.component';
 import { ListadoTransporteComponent } from './components/listado-transporte/listado-transporte.component';
+import { LoginComponent } from './components/login/login.component';
+
 import { VerCamionComponent } from './components/ver-camion/ver-camion.component';
 import { VerChoferComponent } from './components/ver-chofer/ver-chofer.component';
 import { VerTransporteComponent } from './components/ver-transporte/ver-transporte.component';
@@ -17,7 +19,7 @@ import { MenuComponent } from './menu/menu.component';
 
 const routes: Routes = [
 
-{ path: '', redirectTo: 'menuLosQuebrachos', pathMatch: 'full' },
+{ path: '', redirectTo: 'login', pathMatch: 'full' },
 { path: 'menuLosQuebrachos', component: MenuComponent },
 { path: 'listTransporte', component: ListadoTransporteComponent },
 { path: 'agregarTransporte', component: AgregarEditarTransporteComponent },
@@ -34,7 +36,8 @@ const routes: Routes = [
 { path: 'agregarOrdenDeCarga', component: AgregarEditarOrdenDeCargaComponent },
 { path: 'listOrdenDeCarga', component: ListadoOrdenDeCargaComponent },
 { path: 'editarOrdenDeCarga/:id', component: AgregarEditarOrdenDeCargaComponent },
-{ path: '**', redirectTo: 'menuLosQuebrachos', pathMatch: 'full' },
+{ path: 'login', component: LoginComponent },
+{ path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({

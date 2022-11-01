@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, VERSION } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,6 +14,7 @@ export class AgregarEditarOrdenDeCargaComponent implements OnInit {
   
   form: FormGroup;
   id: number;
+  
 
   operacion: string = 'Agregar';
 
@@ -36,10 +37,12 @@ export class AgregarEditarOrdenDeCargaComponent implements OnInit {
     if (this.id != 0){
       this.operacion = 'Editar';
       this.obtenerOrdenDeCarga(this.id);
+     
     }
 
   }
 
+  
   obtenerOrdenDeCarga(id: number){
      this._ordenDeCargaService.getOrdenDeCarga(id).subscribe({
       next: data=>{

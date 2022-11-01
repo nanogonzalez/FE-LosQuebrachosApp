@@ -1,0 +1,17 @@
+.login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+}
+img{
+    width: 50%;
+}
+
+.logo{
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   margin-top: 80px;
+}

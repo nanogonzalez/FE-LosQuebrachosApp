@@ -5,6 +5,6 @@ export interface OrdenDeCarga{
     destinoCarga: string,
     destinoDescarga: string,
     diaCarga: Date,
-    horaCarga: Date,
+    horaCarga: Time,
     tipoMercaderia: string
 }

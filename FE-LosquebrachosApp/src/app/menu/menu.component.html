@@ -22,6 +22,10 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>Los Quebrachos Transporte y Logística</span>
+      <ul *ngIf="auth.user$ | async as user">
+        <li>{{ user.name }}</li>
+      </ul>
+      <button (click)="logOut()" mat-raised-button color="warn">Cerrar Sesión</button>
     </mat-toolbar>
     <!-- Add Content Here -->
   </mat-sidenav-content>

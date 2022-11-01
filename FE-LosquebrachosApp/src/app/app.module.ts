@@ -20,6 +20,11 @@ import { ListadoOrdenDeCargaComponent } from './components/listado-orden-de-carg
 import { AgregarEditarOrdenDeCargaComponent } from './components/agregar-editar-orden-de-carga/agregar-editar-orden-de-carga.component';
 
 
+import { AuthModule } from '@auth0/auth0-angular';
+import { LoginComponent } from './components/login/login.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -37,15 +42,19 @@ import { AgregarEditarOrdenDeCargaComponent } from './components/agregar-editar-
     MatConfirmBoxComponent,
     ListadoOrdenDeCargaComponent,
     AgregarEditarOrdenDeCargaComponent,
-    
+    LoginComponent
   
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule
- 
+    SharedModule,
+    AuthModule.forRoot({
+      domain: 'dev-j7gw3civxd4qubdc.us.auth0.com',
+      clientId: 'r1NtsuKFZ5kzlDE1wJ7cS4XPorx90Aa3'
+    }),
   ],
+ 
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [ListadoTransporteComponent, MatConfirmBoxComponent]
