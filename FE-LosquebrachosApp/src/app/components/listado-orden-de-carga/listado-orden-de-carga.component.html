@@ -25,15 +25,11 @@
             <td mat-cell *matCellDef="let element"> {{element.destinoDescarga}} </td>
           </ng-container>
         
-          <ng-container matColumnDef="diaCarga" >
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Día de Carga </th>
-            <td mat-cell *matCellDef="let element"> {{element.diaCarga | date:'dd/MM/YYYY'}} </td>
+          <ng-container matColumnDef="diaHoraCarga" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Día y Hora de Carga </th>
+            <td mat-cell *matCellDef="let element"> {{element.diaHoraCarga | date:'M/d/yy, h:mm a'}} </td>
           </ng-container>
   
-          <ng-container matColumnDef="horaCarga" >
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora de Carga </th>
-              <td mat-cell *matCellDef="let element"> {{element.horaCarga }} </td>
-            </ng-container>
   
           <ng-container matColumnDef="tipoMercaderia" >
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de Mercaderia </th>

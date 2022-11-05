@@ -6,7 +6,6 @@
     <div class="title">
         <h1>{{operacion}} Orden De Carga</h1>
     </div>
-
     <mat-card class="card mat-elevation-z8">
         <mat-card-subtitle>  
             Información de la Orden de Carga
@@ -27,20 +26,19 @@
                 </mat-grid-tile>
                 <mat-grid-tile>
                     <mat-form-field appearance="outline">
-                        <mat-label>Día de Carga:</mat-label>
-                        <input type="date" formControlName="diaCarga" matInput autocomplete="off">
+                        <mat-label>Día y Hora de Carga:</mat-label>
+                        <input type="datetime-local" formControlName="diaHoraCarga" matInput autocomplete="off">
                     </mat-form-field>
                 </mat-grid-tile>
-                <mat-grid-tile>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Hora de Carga:</mat-label>
-                        <input type="time" formControlName="horaCarga" matInput autocomplete="off">
-                    </mat-form-field>
-                </mat-grid-tile>
+               
                 <mat-grid-tile>
                     <mat-form-field appearance="outline">
                         <mat-label>Tipo de Mercadería:</mat-label>
-                        <input formControlName="tipoMercaderia" matInput autocomplete="off">
+                        <mat-select formControlName="tipoMercaderia" name="mercaderia">
+                            <mat-option *ngFor="let mercaderia of mercaderias" [value]="mercaderia.value">
+                              {{mercaderia.viewValue}}
+                            </mat-option>
+                          </mat-select>
                     </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>
@@ -50,4 +48,12 @@
               </mat-grid-list>
         </form>
     </mat-card>
+    <script>
+        config= {
+    enableTime: true,
+    dateFormat: "Y-m-d H:i",
+    }
+        flatpickr("input[type=datetime-local]", config);
+    </script>
+    <script src="map-autocomplete.js"></script>
 </div>

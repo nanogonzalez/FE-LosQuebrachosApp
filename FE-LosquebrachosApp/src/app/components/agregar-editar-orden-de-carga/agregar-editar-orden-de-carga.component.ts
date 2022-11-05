@@ -5,16 +5,31 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OrdenDeCarga } from 'src/app/interfaces/orden-de-carga';
 import { OrdenDeCargaService } from 'src/app/services/orden-de-carga.service';
 
+
+interface Mercaderia {
+  value: string,
+  viewValue: string
+}
+
 @Component({
   selector: 'app-agregar-editar-orden-de-carga',
   templateUrl: './agregar-editar-orden-de-carga.component.html',
   styleUrls: ['./agregar-editar-orden-de-carga.component.css']
 })
 export class AgregarEditarOrdenDeCargaComponent implements OnInit {
-  
+
+    
   form: FormGroup;
   id: number;
-  
+
+  mercaderias: Mercaderia[] = [
+    {value: 'Soja', viewValue: 'Soja'},
+    {value: 'Maíz', viewValue: 'Maíz'},
+    {value: 'Trigo', viewValue: 'Trigo'},
+    {value: 'Sorgo', viewValue: 'Sorgo'},
+    {value: 'Girasol', viewValue: 'Girasol'},
+    {value: 'Otros', viewValue: 'Otros'}
+  ];
 
   operacion: string = 'Agregar';
 
@@ -23,8 +38,7 @@ export class AgregarEditarOrdenDeCargaComponent implements OnInit {
     this.form = this.fb.group({
       destinoCarga: ['', Validators.required],
       destinoDescarga: ['', Validators.required],
-      diaCarga: ['', Validators.required],
-      horaCarga: ['', Validators.required],
+      diaHoraCarga: ['', Validators.required],
       tipoMercaderia: ['', Validators.required],
     })
 
@@ -32,7 +46,9 @@ export class AgregarEditarOrdenDeCargaComponent implements OnInit {
 
    }
 
+
   ngOnInit(): void {
+   
    
     if (this.id != 0){
       this.operacion = 'Editar';
@@ -49,8 +65,7 @@ export class AgregarEditarOrdenDeCargaComponent implements OnInit {
         this.form.patchValue({
           destinoCarga: data.destinoCarga,
           destinoDescarga: data.destinoDescarga,
-          diaCarga: data.diaCarga,
-          horaCarga: data.horaCarga,
+          diaHoraCarga: data.diaHoraCarga,
           tipoMercaderia: data.tipoMercaderia
         })
       }
@@ -61,8 +76,7 @@ export class AgregarEditarOrdenDeCargaComponent implements OnInit {
     const ordenDeCarga: OrdenDeCarga = {
       destinoCarga: this.form.value.destinoCarga,
       destinoDescarga: this.form.value.destinoDescarga,
-      diaCarga: this.form.value.diaCarga,
-      horaCarga: this.form.value.horaCarga,
+      diaHoraCarga: this.form.value.diaHoraCarga,
       tipoMercaderia: this.form.value.tipoMercaderia 
     }
     

@@ -26,6 +26,8 @@ import { LoginComponent } from './components/login/login.component';
 
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +54,7 @@ import { LoginComponent } from './components/login/login.component';
     AuthModule.forRoot({
       domain: 'dev-j7gw3civxd4qubdc.us.auth0.com',
       clientId: 'r1NtsuKFZ5kzlDE1wJ7cS4XPorx90Aa3'
-    }),
+    })
   ],
  
   providers: [],

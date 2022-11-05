@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild, Pipe, PipeTransform } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
@@ -6,6 +6,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { OrdenDeCarga } from 'src/app/interfaces/orden-de-carga';
 import { ConfirmBoxService } from 'src/app/services/confirm-box.service';
 import { OrdenDeCargaService } from 'src/app/services/orden-de-carga.service';
+import { GeocoderAutocomplete } from '@geoapify/geocoder-autocomplete';
+
 
 
 @Component({
@@ -15,9 +17,9 @@ import { OrdenDeCargaService } from 'src/app/services/orden-de-carga.service';
 })
 export class ListadoOrdenDeCargaComponent implements OnInit, AfterViewInit{
 
-  
 
-  displayedColumns: string[] = ['destinoCarga', 'destinoDescarga', 'diaCarga', 'horaCarga', 'tipoMercaderia', 'acciones'];
+
+  displayedColumns: string[] = ['destinoCarga', 'destinoDescarga', 'diaHoraCarga', 'tipoMercaderia', 'acciones'];
   dataSource = new MatTableDataSource<OrdenDeCarga>();
 
 
@@ -58,7 +60,7 @@ export class ListadoOrdenDeCargaComponent implements OnInit, AfterViewInit{
   
       
 
-     this._dialogService.openConfirmDialog('Orden De Carga')
+     this._dialogService.openConfirmDialog('Pedido De Carga')
      .afterClosed().subscribe(res=>{
       if(res){
         this._ordenDeCargaService.deleteOrdenDeCarga(id).subscribe(()=>{

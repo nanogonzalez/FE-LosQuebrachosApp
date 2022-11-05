@@ -24,6 +24,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDialogModule} from '@angular/material/dialog';
 import {NgConfirmModule} from 'ng-confirm-box';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import {NgConfirmModule} from 'ng-confirm-box';
     HttpClientModule,
     MatDialogModule,
     NgConfirmModule,
+    MatSelectModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -71,7 +73,8 @@ import {NgConfirmModule} from 'ng-confirm-box';
     ReactiveFormsModule,
     HttpClientModule,
     MatDialogModule,
-    NgConfirmModule
+    NgConfirmModule,
+    MatSelectModule
   ]
 })
 export class SharedModule { }

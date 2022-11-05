@@ -4,7 +4,6 @@ export interface OrdenDeCarga{
     id?: number,
     destinoCarga: string,
     destinoDescarga: string,
-    diaCarga: Date,
-    horaCarga: Time,
+    diaHoraCarga: Date,
     tipoMercaderia: string
 }
