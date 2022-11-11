@@ -15,6 +15,7 @@ import { LoginComponent } from './components/login/login.component';
 import { VerCamionComponent } from './components/ver-camion/ver-camion.component';
 import { VerChoferComponent } from './components/ver-chofer/ver-chofer.component';
 import { VerTransporteComponent } from './components/ver-transporte/ver-transporte.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { MenuComponent } from './menu/menu.component';
 
 const routes: Routes = [
@@ -37,6 +38,7 @@ const routes: Routes = [
 { path: 'listOrdenDeCarga', component: ListadoOrdenDeCargaComponent },
 { path: 'editarOrdenDeCarga/:id', component: AgregarEditarOrdenDeCargaComponent },
 { path: 'login', component: LoginComponent },
+{ path: 'dashboard', component: DashboardComponent },
 { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 

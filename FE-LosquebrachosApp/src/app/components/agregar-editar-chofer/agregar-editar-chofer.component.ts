@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Chofer } from 'src/app/interfaces/chofer';
+import { Transporte } from 'src/app/interfaces/transporte';
 import { ChoferService } from 'src/app/services/chofer.service';
 
 @Component({
@@ -11,6 +12,10 @@ import { ChoferService } from 'src/app/services/chofer.service';
   styleUrls: ['./agregar-editar-chofer.component.css']
 })
 export class AgregarEditarChoferComponent implements OnInit {
+
+  transportes: Transporte[] = [
+    
+  ];
 
   form: FormGroup;
   id: number;

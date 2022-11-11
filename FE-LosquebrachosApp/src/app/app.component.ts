@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AgregarEditarOrdenDeCargaComponent } from './components/agregar-editar-orden-de-carga/agregar-editar-orden-de-carga.component';
 
 @Component({
   selector: 'app-root',

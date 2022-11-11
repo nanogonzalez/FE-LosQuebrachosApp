@@ -22,9 +22,14 @@ import { AgregarEditarOrdenDeCargaComponent } from './components/agregar-editar-
 
 import { AuthModule } from '@auth0/auth0-angular';
 import { LoginComponent } from './components/login/login.component';
-
-
-
+import { GoogleMapsModule } from '@angular/google-maps';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { LayoutModule } from '@angular/cdk/layout';
 
 
 
@@ -44,7 +49,8 @@ import { LoginComponent } from './components/login/login.component';
     MatConfirmBoxComponent,
     ListadoOrdenDeCargaComponent,
     AgregarEditarOrdenDeCargaComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent
   
   ],
   imports: [
@@ -54,11 +60,19 @@ import { LoginComponent } from './components/login/login.component';
     AuthModule.forRoot({
       domain: 'dev-j7gw3civxd4qubdc.us.auth0.com',
       clientId: 'r1NtsuKFZ5kzlDE1wJ7cS4XPorx90Aa3'
-    })
+    }),
+    GoogleMapsModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    LayoutModule
   ],
  
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [ListadoTransporteComponent, MatConfirmBoxComponent]
 })
+
 export class AppModule { }

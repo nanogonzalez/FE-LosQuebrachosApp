@@ -10,18 +10,54 @@
         <mat-card-subtitle>  
             Información de la Orden de Carga
         </mat-card-subtitle>
+
+        <div style="display: none">
+           <!-- <input
+              id="origin-input"
+              class="controls"
+              type="text"
+              placeholder="Destino de Carga"
+            />
+      
+            <input
+              id="destination-input"
+              class="controls"
+              type="text"
+              placeholder="Destino de Descarga"
+            />
+      
+            <div id="mode-selector" class="controls">
+              <input
+                type="radio"
+                name="type"
+                id="changemode-walking"
+                checked="checked"
+              />
+              <label for="changemode-walking">Walking</label>
+      
+              <input type="radio" name="type" id="changemode-transit" />
+              <label for="changemode-transit">Transit</label>
+      
+              <input type="radio" name="type" id="changemode-driving" />
+              <label for="changemode-driving">Driving</label>
+            </div>-->
+          </div>
+      
+
+              <div #map id="map"></div>
+
         <form [formGroup]="form" (ngSubmit)="agregarEditarOrdenDeCarga()">
             <mat-grid-list cols="2" rowHeight="80px">
                 <mat-grid-tile>
                     <mat-form-field appearance="outline">
                         <mat-label>Destino de Carga:</mat-label>
-                        <input formControlName="destinoCarga" matInput autocomplete="off">
+                        <input id="origin-input" #inputFieldFrom formControlName="destinoCarga" matInput [placeholder]="placeholder" (placeChanged)="fromValue">
                     </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>
                     <mat-form-field appearance="outline">
                         <mat-label>Destino de Descarga:</mat-label>
-                        <input formControlName="destinoDescarga" matInput autocomplete="off">
+                        <input id="destination-input" #inputFieldTo formControlName="destinoDescarga" matInput [placeholder]="placeholder" (placeChanged)="fromValue">
                     </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>
@@ -41,13 +77,16 @@
                           </mat-select>
                     </mat-form-field>
                 </mat-grid-tile>
-                <mat-grid-tile>
+                <mat-grid-tile class="btns">
                     <button [disabled]="form.invalid" type="submit" class="btnAceptar" mat-raised-button color="primary">Aceptar</button>
                     <button mat-raised-button routerLink="/listOrdenDeCarga">Volver</button>
                 </mat-grid-tile>
               </mat-grid-list>
         </form>
     </mat-card>
+
+    
+    
     <script>
         config= {
     enableTime: true,
@@ -55,5 +94,5 @@
     }
         flatpickr("input[type=datetime-local]", config);
     </script>
-    <script src="map-autocomplete.js"></script>
+    
 </div>

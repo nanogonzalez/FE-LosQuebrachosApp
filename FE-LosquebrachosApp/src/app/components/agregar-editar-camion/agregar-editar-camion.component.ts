@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Camion } from 'src/app/interfaces/camion';
+import { Transporte } from 'src/app/interfaces/transporte';
 import { CamionService } from 'src/app/services/camion.service';
+
 
 @Component({
   selector: 'app-agregar-editar-camion',
@@ -14,6 +16,10 @@ export class AgregarEditarCamionComponent implements OnInit{
 
   form: FormGroup;
   id: number;
+
+  transportes: Transporte[] = [
+    
+  ];
 
   operacion: string = 'Agregar';
 

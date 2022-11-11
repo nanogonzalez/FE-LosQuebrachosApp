@@ -38,6 +38,16 @@
                     </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Elegir Transporte</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let transporte of transportes" [value]="transporte.nombre">
+                              {{transporte.nombre}}
+                            </mat-option>
+                          </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
                     <button [disabled]="form.invalid" type="submit" class="btnAceptar" mat-raised-button color="primary">Aceptar</button>
                     <button mat-raised-button routerLink="/listVehiculo">Volver</button>
                 </mat-grid-tile>
