@@ -4,31 +4,31 @@
 <div class="container">
  
     <div class="title">
-        <h1>{{operacion}} Chofer</h1>
+        <h1>{{operacion}} Cliente</h1>
     </div>
 
     <mat-card class="card mat-elevation-z8">
         <mat-card-subtitle>
            Información del Chofer
         </mat-card-subtitle>
-        <form [formGroup]="form" (ngSubmit)="agregarEditarChofer()">
+        <form [formGroup]="form" (ngSubmit)="agregarEditarCliente()">
             <mat-grid-list cols="1" rowHeight="80px">
                 <mat-grid-tile>
                     <mat-form-field appearance="outline">
-                        <mat-label>Nombre:</mat-label>
-                        <input formControlName="nombre" matInput autocomplete="off">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Apellido:</mat-label>
-                        <input formControlName="apellido" matInput autocomplete="off">
+                        <mat-label>Razón Social:</mat-label>
+                        <input formControlName="razonSocial" matInput autocomplete="off">
                     </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>
                     <mat-form-field appearance="outline">
                         <mat-label>Cuit:</mat-label>
                         <input type="number" formControlName="cuit" matInput autocomplete="off">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Destino de Carga:</mat-label>
+                        <input formControlName="destinoCarga" matInput autocomplete="off">
                     </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>
@@ -43,10 +43,11 @@
                 </mat-grid-tile>
                 <mat-grid-tile>
                     <button [disabled]="form.invalid" type="submit" class="btnAceptar" mat-raised-button color="primary">Aceptar</button>
-                    <button mat-raised-button routerLink="/listChofer">Volver</button>
+                    <button mat-raised-button routerLink="/listCliente">Volver</button>
                 </mat-grid-tile>
               </mat-grid-list>
         </form>
     </mat-card>
 </div>
+
 

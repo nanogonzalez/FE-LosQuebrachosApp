@@ -16,6 +16,7 @@ export class DashboardComponent {
           { title: 'Listado de Transportes', cols: 2, rows: 1 },
           { title: 'Listado de Choferes', cols: 2, rows: 1 },
           { title: 'Listado de Camiones', cols: 2, rows: 1 },
+          { title: 'Clientes', cols: 2, rows: 1 },
           { title: 'Ordenes de Carga', cols: 2, rows: 1 }
         ];
       }
@@ -24,6 +25,7 @@ export class DashboardComponent {
         { title: 'Listado de Transportes', cols: 2, rows: 1 },
         { title: 'Listado de Choferes', cols: 2, rows: 1 },
         { title: 'Listado de Camiones', cols: 2, rows: 1 },
+        { title: 'Clientes', cols: 2, rows: 1 },
         { title: 'Ordenes de Carga', cols: 2, rows: 1 }
       ];
     })

@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AgregarEditarCamionComponent } from './components/agregar-editar-camion/agregar-editar-camion.component';
 import { AgregarEditarChoferComponent } from './components/agregar-editar-chofer/agregar-editar-chofer.component';
+import { AgregarEditarClienteComponent } from './components/agregar-editar-cliente/agregar-editar-cliente.component';
 import { AgregarEditarOrdenDeCargaComponent } from './components/agregar-editar-orden-de-carga/agregar-editar-orden-de-carga.component';
 import { AgregarEditarTransporteComponent } from './components/agregar-editar-transporte/agregar-editar-transporte.component';
 
 import { ListadoCamionComponent } from './components/listado-camion/listado-camion.component';
 import { ListadoChoferComponent } from './components/listado-chofer/listado-chofer.component';
+import { ListadoClienteComponent } from './components/listado-cliente/listado-cliente.component';
 
 import { ListadoOrdenDeCargaComponent } from './components/listado-orden-de-carga/listado-orden-de-carga.component';
 import { ListadoTransporteComponent } from './components/listado-transporte/listado-transporte.component';
@@ -37,6 +39,9 @@ const routes: Routes = [
 { path: 'agregarOrdenDeCarga', component: AgregarEditarOrdenDeCargaComponent },
 { path: 'listOrdenDeCarga', component: ListadoOrdenDeCargaComponent },
 { path: 'editarOrdenDeCarga/:id', component: AgregarEditarOrdenDeCargaComponent },
+{ path: 'agregarCliente', component: AgregarEditarClienteComponent },
+{ path: 'listCliente', component: ListadoClienteComponent },
+{ path: 'editarCliente/:id', component: AgregarEditarClienteComponent },
 { path: 'login', component: LoginComponent },
 { path: 'dashboard', component: DashboardComponent },
 { path: '**', redirectTo: 'login', pathMatch: 'full' }

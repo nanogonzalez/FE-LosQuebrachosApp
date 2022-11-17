@@ -30,6 +30,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
+import { AgregarEditarClienteComponent } from './components/agregar-editar-cliente/agregar-editar-cliente.component';
+import { ListadoClienteComponent } from './components/listado-cliente/listado-cliente.component';
 
 
 
@@ -50,7 +52,9 @@ import { LayoutModule } from '@angular/cdk/layout';
     ListadoOrdenDeCargaComponent,
     AgregarEditarOrdenDeCargaComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    AgregarEditarClienteComponent,
+    ListadoClienteComponent
   
   ],
   imports: [

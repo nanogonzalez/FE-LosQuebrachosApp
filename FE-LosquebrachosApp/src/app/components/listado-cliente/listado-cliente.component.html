@@ -5,7 +5,7 @@
 <div class="container">
 
     <div class="title">
-        <h1>Transportes</h1>
+        <h1>Clientes</h1>
     </div>
 
     <mat-form-field appearance="standard">
@@ -15,14 +15,9 @@
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
-        <ng-container matColumnDef="nombre">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header > Nombre </th>
+        <ng-container matColumnDef="razonSocial">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header > Razón Social </th>
           <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-        </ng-container>
-      
-        <ng-container matColumnDef="apellido" >
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellido </th>
-          <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
         </ng-container>
       
         <ng-container matColumnDef="cuit" >
@@ -30,13 +25,18 @@
           <td mat-cell *matCellDef="let element"> {{element.cuit}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="destinoCarga" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Destino de Carga </th>
+            <td mat-cell *matCellDef="let element"> {{element.cuit}} </td>
+          </ng-container>
+
         <ng-container matColumnDef="acciones" >
             <th mat-header-cell *matHeaderCellDef > 
-                <button class="agregar" routerLink="/agregarTransporte" matTooltip="Agregar Transporte" mat-raised-button color="primary">Agregar</button> 
+                <button class="agregar" routerLink="/agregarCliente" matTooltip="Agregar Cliente" mat-raised-button color="primary">Agregar</button> 
             </th>
             <td mat-cell *matCellDef="let element"> 
-                <mat-icon routerLink="/editarTransporte/{{element.id}}" matTooltip="Editar" class="edit" fontIcon="edit"></mat-icon>    
-                <mat-icon (click)="eliminarTransporte(element.id)"  matTooltip="Eliminar" class="delete" fontIcon="delete"></mat-icon>     
+                <mat-icon routerLink="/editarCliente/{{element.id}}" matTooltip="Editar" class="edit" fontIcon="edit"></mat-icon>    
+                <mat-icon (click)="eliminarCliente(element.id)"  matTooltip="Eliminar" class="delete" fontIcon="delete"></mat-icon>     
             </td>
           </ng-container>
       
