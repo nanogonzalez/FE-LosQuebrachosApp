@@ -5,6 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Chofer } from 'src/app/interfaces/chofer';
 import { Transporte } from 'src/app/interfaces/transporte';
 import { ChoferService } from 'src/app/services/chofer.service';
+import { TransporteService } from 'src/app/services/transporte.service';
+import { FormControl } from '@angular/forms';
+import { Observable, startWith, map } from 'rxjs';
+
 
 @Component({
   selector: 'app-agregar-editar-chofer',
@@ -13,40 +17,69 @@ import { ChoferService } from 'src/app/services/chofer.service';
 })
 export class AgregarEditarChoferComponent implements OnInit {
 
-  transportes: Transporte[] = [
-    
-  ];
+  transportes: Transporte[] = [];
+
+  filteredTransportes: Observable<Transporte[]>;
+  transporteControl = new FormControl<string | Transporte>('');
 
   form: FormGroup;
   id: number;
   operacion: string = 'Agregar';
-
-  constructor(private fb: FormBuilder, private _choferService: ChoferService, private _snackBar: MatSnackBar, private router: Router, private aRoute: ActivatedRoute) { 
+  
+  constructor(private fb: FormBuilder, private _choferService: ChoferService, private _snackBar: MatSnackBar, private router: Router, private aRoute: ActivatedRoute, private _transporteService: TransporteService) { 
 
     this.form = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      cuit: ['', Validators.required]
+      cuit: ['', Validators.required],
+      transporte: ['', Validators.required]
     })
+
+    
 
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
   }
 
+
+
   ngOnInit(): void {
+   
+    this.obtenerTransporte();
 
     if (this.id != 0){
       this.operacion = 'Editar';
       this.obtenerChofer(this.id);
     }
+ 
+    this.filteredTransportes = this.transporteControl.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const apellido = typeof value === 'string' ? value : value?.apellido;
+        return apellido ? this._filter(apellido as string) : this.transportes.slice();
+      }),
+    ); 
+
   }
-  
+
+  displayFn(transporte: Transporte): string {
+    return transporte && transporte.nombre + " " + transporte.apellido ? transporte.nombre + " " + transporte.apellido: '';
+  }
+
+  private _filter(apellido: string): Transporte[] {
+    const filterValue = apellido.toLowerCase();
+
+    return this.transportes.filter(transporte => transporte.apellido.toLowerCase().includes(filterValue));
+  }
+
+
   obtenerChofer(id: number){
      this._choferService.getChofer(id).subscribe({
       next: data=>{
         this.form.patchValue({
           nombre: data.nombre,
           apellido: data.apellido,
-          cuit: data.cuit
+          cuit: data.cuit,
+          transporte: data.transporte
         })
       }
      })
@@ -56,7 +89,8 @@ export class AgregarEditarChoferComponent implements OnInit {
     const chofer: Chofer = {
       nombre: this.form.value.nombre,
       apellido: this.form.value.apellido,
-      cuit: this.form.value.cuit
+      cuit: this.form.value.cuit,
+      transporte: this.form.value.transporte
     }
 
     if (this.id != 0){
@@ -90,5 +124,13 @@ export class AgregarEditarChoferComponent implements OnInit {
       duration: 2000,
       horizontalPosition: 'left'
    });
+  }
+
+  obtenerTransporte(){
+    this._transporteService.getTransportes().subscribe({
+      next: data =>{
+         this.transportes = data.data;
+      }
+    })
   }
 }

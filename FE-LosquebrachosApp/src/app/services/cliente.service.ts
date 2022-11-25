@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Cliente } from '../interfaces/cliente';
+import { PagedResponse } from '../interfaces/pagedResponse';
 
 @Injectable({
     providedIn: 'root'
@@ -14,8 +15,8 @@ import { Cliente } from '../interfaces/cliente';
     
     constructor(private hhtp: HttpClient) { }
 
-    getClientes(): Observable<Cliente[]>{
-        return this.hhtp.get<Cliente[]>(`${this.myAppUrl}${this.myApiUrl}`);
+    getClientes(): Observable<PagedResponse<Cliente>>{
+        return this.hhtp.get<PagedResponse<Cliente>>(`${this.myAppUrl}${this.myApiUrl}`);
       }
       
       getCliente(id: number): Observable<Cliente>{

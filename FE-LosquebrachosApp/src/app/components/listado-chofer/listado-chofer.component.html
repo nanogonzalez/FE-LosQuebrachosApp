@@ -30,6 +30,11 @@
           <td mat-cell *matCellDef="let element"> {{element.cuit}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="transporte" >
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Transporte </th>
+          <td mat-cell *matCellDef="let element"> {{element.transporte.nombre}} {{element.transporte.apellido}}</td>
+        </ng-container>
+
         <ng-container matColumnDef="acciones" >
             <th mat-header-cell *matHeaderCellDef > 
                 <button class="agregar" routerLink="/agregarChofer" matTooltip="Agregar Chofer" mat-raised-button color="primary">Agregar</button> 
@@ -48,7 +53,7 @@
 
         <button class="agregar" routerLink="/menuLosquebrachos" matTooltip="Volver al menú principal" mat-raised-button color="primary">Volver</button>
 
-        <mat-paginator [pageSizeOptions]="[20]"
+        <mat-paginator [pageSizeOptions]="[10]"
         showFirstLastButtons 
         aria-label="Select page of periodic elements">
         </mat-paginator>

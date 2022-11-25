@@ -45,7 +45,7 @@ export class ListadoTransporteComponent implements OnInit, AfterViewInit {
   obtenerTransporte(){
     this._transporteService.getTransportes().subscribe({
       next: data =>{
-         this.dataSource.data = data;
+         this.dataSource.data = data.data;
       }
     })
   }

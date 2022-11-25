@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Camion } from '../interfaces/camion';
+import { PagedResponse } from '../interfaces/pagedResponse';
 
 
 
@@ -17,8 +18,8 @@ import { Camion } from '../interfaces/camion';
   
     constructor(private hhtp: HttpClient) { }
   
-    getVehiculos(): Observable<Camion[]>{
-      return this.hhtp.get<Camion[]>(`${this.myAppUrl}${this.myApiUrl}`);
+    getVehiculos(): Observable<PagedResponse<Camion>>{
+      return this.hhtp.get<PagedResponse<Camion>>(`${this.myAppUrl}${this.myApiUrl}`);
     }
   
     getVehiculo(id: number): Observable<Camion>{

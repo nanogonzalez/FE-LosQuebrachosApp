@@ -34,11 +34,19 @@
                 <mat-grid-tile>
                     <mat-form-field appearance="outline">
                         <mat-label>Adjudicar Transporte</mat-label>
-                        <mat-select>
-                            <mat-option *ngFor="let transporte of transportes" [value]="transporte.nombre">
+                        <input type="text" matInput [matAutocomplete]="auto"
+                        [formControl]="transporteControl" formControlName="transporte" placeholder="Buscar">
+                        <mat-autocomplete [panelWidth]="300" #auto="matAutocomplete" [displayWith]="displayFn">
+                        <mat-option *ngFor="let transporte of filteredTransportes | async" [value]="transporte">
+                        <span><b>{{transporte.nombre}}</b> {{transporte.apellido}}</span>
+                        </mat-option>
+                        </mat-autocomplete>
+                        <!--<mat-select formControlName="transporte">
+                            <mat-option *ngFor="let transporte of transportes" [value]="transporte">
                               {{transporte.nombre}}
+                              {{transporte.apellido}}
                             </mat-option>
-                          </mat-select>
+                          </mat-select>-->
                     </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>

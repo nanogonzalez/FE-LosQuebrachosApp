@@ -51,7 +51,7 @@ export class ListadoOrdenDeCargaComponent implements OnInit, AfterViewInit{
   obtenerOrdenDeCarga(){
     this._ordenDeCargaService.getOrdenesDeCargas().subscribe({
       next: data =>{
-         this.dataSource.data = data;
+         this.dataSource.data = data.data;
       }
     })
   }

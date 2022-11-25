@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Transporte } from 'src/app/interfaces/transporte';
 import { TransporteService } from 'src/app/services/transporte.service';
@@ -16,6 +17,7 @@ export class AgregarEditarTransporteComponent implements OnInit {
   id: number;
 
   operacion: string = 'Agregar';
+
 
   constructor(private fb: FormBuilder, private _transporteService: TransporteService, private _snackBar: MatSnackBar, private router: Router, private aRoute: ActivatedRoute) {
     
@@ -86,6 +88,7 @@ export class AgregarEditarTransporteComponent implements OnInit {
       horizontalPosition: 'left'
    });
   }
+
 
 }
 

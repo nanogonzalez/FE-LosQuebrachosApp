@@ -9,7 +9,7 @@
 
     <mat-card class="card mat-elevation-z8">
         <mat-card-subtitle>
-           Información del Chofer
+           Información del Cliente
         </mat-card-subtitle>
         <form [formGroup]="form" (ngSubmit)="agregarEditarCliente()">
             <mat-grid-list cols="1" rowHeight="80px">
@@ -31,16 +31,7 @@
                         <input formControlName="destinoCarga" matInput autocomplete="off">
                     </mat-form-field>
                 </mat-grid-tile>
-                <mat-grid-tile>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Adjudicar Transporte</mat-label>
-                        <mat-select>
-                            <mat-option *ngFor="let transporte of transportes" [value]="transporte.nombre">
-                              {{transporte.nombre}}
-                            </mat-option>
-                          </mat-select>
-                    </mat-form-field>
-                </mat-grid-tile>
+               
                 <mat-grid-tile>
                     <button [disabled]="form.invalid" type="submit" class="btnAceptar" mat-raised-button color="primary">Aceptar</button>
                     <button mat-raised-button routerLink="/listCliente">Volver</button>

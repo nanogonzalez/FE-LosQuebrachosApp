@@ -14,7 +14,7 @@ import { ConfirmBoxService } from 'src/app/services/confirm-box.service';
 })
 export class ListadoCamionComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['chasis', 'acoplado', 'tipo', 'capacidadTN', 'acciones'];
+  displayedColumns: string[] = ['chasis', 'acoplado', 'tipo', 'capacidadTN', 'transporte', 'acciones'];
   dataSource = new MatTableDataSource<Camion>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -40,7 +40,7 @@ export class ListadoCamionComponent implements OnInit, AfterViewInit {
   obtenerVehiculo(){
     this._vehiculoService.getVehiculos().subscribe({
       next: data=>{
-        this.dataSource.data = data;
+        this.dataSource.data = data.data;
       }
     })
   }

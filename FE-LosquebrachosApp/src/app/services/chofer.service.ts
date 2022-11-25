@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Chofer } from '../interfaces/chofer';
+import { PagedResponse } from '../interfaces/pagedResponse';
 
 
 
@@ -16,8 +17,9 @@ import { Chofer } from '../interfaces/chofer';
     
     constructor(private hhtp: HttpClient) { }
 
-    getChoferes(): Observable<Chofer[]>{
-      return this.hhtp.get<Chofer[]>(`${this.myAppUrl}${this.myApiUrl}`);
+
+    getChoferes(): Observable<PagedResponse<Chofer>>{
+      return this.hhtp.get<PagedResponse<Chofer>>(`${this.myAppUrl}${this.myApiUrl}`);
     }
     
     getChofer(id: number): Observable<Chofer>{

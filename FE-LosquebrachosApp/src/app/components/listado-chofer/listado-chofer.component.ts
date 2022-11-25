@@ -14,7 +14,7 @@ import { ConfirmBoxService } from 'src/app/services/confirm-box.service';
 })
 export class ListadoChoferComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['nombre', 'apellido', 'cuit', 'acciones'];
+  displayedColumns: string[] = ['nombre', 'apellido', 'cuit', 'transporte', 'acciones'];
   dataSource = new MatTableDataSource<Chofer>();
 
   
@@ -41,7 +41,7 @@ export class ListadoChoferComponent implements OnInit, AfterViewInit {
   obtenerChofer(){
     this._choferService.getChoferes().subscribe({
       next: data=>{
-        this.dataSource.data = data;
+        this.dataSource.data = data.data;
       }
     })
   } 
@@ -67,6 +67,7 @@ export class ListadoChoferComponent implements OnInit, AfterViewInit {
       horizontalPosition: 'left'
    });
   }
+
 }
 
 

@@ -13,10 +13,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 })
 export class AgregarEditarClienteComponent implements OnInit {
 
-  transportes: Transporte[] = [
-    
-  ];
-
+  
   form: FormGroup;
   id: number;
   operacion: string = 'Agregar';
@@ -24,9 +21,9 @@ export class AgregarEditarClienteComponent implements OnInit {
   constructor(private fb: FormBuilder, private _clienteService: ClienteService, private _snackBar: MatSnackBar, private router: Router, private aRoute: ActivatedRoute) { 
 
     this.form = this.fb.group({
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      cuit: ['', Validators.required]
+      razonSocial: ['', Validators.required],
+      cuit: ['', Validators.required],
+      destinoCarga: ['', Validators.required]
     })
 
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));

@@ -5,7 +5,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Camion } from 'src/app/interfaces/camion';
 import { Transporte } from 'src/app/interfaces/transporte';
 import { CamionService } from 'src/app/services/camion.service';
+import { TransporteService } from 'src/app/services/transporte.service';
 
+interface Capacidad {
+  value: number,
+  viewValue: number
+}
+interface Tipo {
+  value: string,
+  viewValue: string
+}
 
 @Component({
   selector: 'app-agregar-editar-camion',
@@ -17,24 +26,39 @@ export class AgregarEditarCamionComponent implements OnInit{
   form: FormGroup;
   id: number;
 
-  transportes: Transporte[] = [
-    
-  ];
+  transportes: Transporte[] = [];
 
   operacion: string = 'Agregar';
 
-  constructor(private fb: FormBuilder, private _vehiculoService: CamionService, private _snackBar: MatSnackBar, private router: Router, private aRoute: ActivatedRoute) {
+  capacidades: Capacidad[] = [
+    {value: 30, viewValue: 30},
+    {value: 36, viewValue: 36}
+  ]
+
+  tipos: Tipo[] = [
+    {value: 'Chasis y Acoplado', viewValue: 'Chasis y Acoplado'},
+    {value: 'Chasis y Acoplado Escalable', viewValue: 'Chasis y Acoplado Escalable'},
+    {value: 'Batea', viewValue: 'Batea'},
+    {value: 'Batea Escalable', viewValue: 'Batea Escalable'},
+    {value: 'Semi', viewValue: 'Semi'},
+    {value: 'Semi Escalable', viewValue: 'Semi Escalable'},
+  ]
+
+  constructor(private fb: FormBuilder, private _vehiculoService: CamionService, private _snackBar: MatSnackBar, private router: Router, private aRoute: ActivatedRoute, private _transporteService: TransporteService) {
     this.form = this.fb.group({
       chasis: ['', Validators.required],
       acoplado: ['', Validators.required],
       tipo: ['', Validators.required],
-      capacidadTN: ['', Validators.required]
+      capacidadTN: ['', Validators.required],
+      transporte: ['', Validators.required]
     })
 
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
    }
 
   ngOnInit(): void {
+
+    this.obtenerTransporte();
 
     if (this.id != 0){
       this.operacion = 'Editar';
@@ -60,7 +84,8 @@ export class AgregarEditarCamionComponent implements OnInit{
       chasis: this.form.value.chasis,
       acoplado: this.form.value.acoplado,
       tipo: this.form.value.tipo,
-      capacidadTN: this.form.value.capacidadTN
+      capacidadTN: this.form.value.capacidadTN,
+      transporte: this.form.value.transporte
     }
    
     if (this.id != 0){
@@ -91,6 +116,14 @@ export class AgregarEditarCamionComponent implements OnInit{
       duration: 2000,
       horizontalPosition: 'left'
    });
+  }
+
+  obtenerTransporte(){
+    this._transporteService.getTransportes().subscribe({
+      next: data =>{
+         this.transportes = data.data;
+      }
+    })
   }
 
 }

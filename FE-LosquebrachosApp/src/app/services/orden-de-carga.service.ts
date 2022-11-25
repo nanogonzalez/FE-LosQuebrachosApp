@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { OrdenDeCarga } from '../interfaces/orden-de-carga';
+import { PagedResponse } from '../interfaces/pagedResponse';
 
 @Injectable({
     providedIn: 'root'
@@ -14,8 +15,8 @@ import { OrdenDeCarga } from '../interfaces/orden-de-carga';
   
     constructor(private hhtp: HttpClient) { }
   
-    getOrdenesDeCargas(): Observable<OrdenDeCarga[]>{
-      return this.hhtp.get<OrdenDeCarga[]>(`${this.myAppUrl}${this.myApiUrl}`);
+    getOrdenesDeCargas(): Observable<PagedResponse<OrdenDeCarga>>{
+      return this.hhtp.get<PagedResponse<OrdenDeCarga>>(`${this.myAppUrl}${this.myApiUrl}`);
     }
   
     getOrdenDeCarga(id: number): Observable<OrdenDeCarga>{

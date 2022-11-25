@@ -25,6 +25,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDialogModule} from '@angular/material/dialog';
 import {NgConfirmModule} from 'ng-confirm-box';
 import {MatSelectModule} from '@angular/material/select';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -51,7 +53,9 @@ import {MatSelectModule} from '@angular/material/select';
     HttpClientModule,
     MatDialogModule,
     NgConfirmModule,
-    MatSelectModule
+    MatSelectModule,
+    MatAutocompleteModule,
+    FormsModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -74,7 +78,9 @@ import {MatSelectModule} from '@angular/material/select';
     HttpClientModule,
     MatDialogModule,
     NgConfirmModule,
-    MatSelectModule
+    MatSelectModule,
+    MatAutocompleteModule,
+    FormsModule
   ]
 })
 export class SharedModule { }

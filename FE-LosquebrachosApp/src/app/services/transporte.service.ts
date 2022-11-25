@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { PagedResponse } from '../interfaces/pagedResponse';
 import { Transporte } from '../interfaces/transporte';
 
 
@@ -15,8 +16,8 @@ import { Transporte } from '../interfaces/transporte';
   
     constructor(private hhtp: HttpClient) { }
   
-    getTransportes(): Observable<Transporte[]>{
-      return this.hhtp.get<Transporte[]>(`${this.myAppUrl}${this.myApiUrl}`);
+    getTransportes(): Observable<PagedResponse<Transporte>>{
+      return this.hhtp.get<PagedResponse<Transporte>>(`${this.myAppUrl}${this.myApiUrl}`);
     }
   
     getTransporte(id: number): Observable<Transporte>{

@@ -14,7 +14,7 @@ import { ConfirmBoxService } from 'src/app/services/confirm-box.service';
 })
 export class ListadoClienteComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['razonSocial', 'cuit','destinoCarga', 'acciones'];
+  displayedColumns: string[] = ['razonSocial', 'cuit', 'destinoCarga', 'acciones'];
   dataSource = new MatTableDataSource<Cliente>();
 
   
@@ -41,7 +41,7 @@ export class ListadoClienteComponent implements OnInit, AfterViewInit {
   obtenerCliente(){
     this._clienteService.getClientes().subscribe({
       next: data=>{
-        this.dataSource.data = data;
+        this.dataSource.data = data.data;
       }
     })
   }
