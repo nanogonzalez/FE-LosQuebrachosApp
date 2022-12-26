@@ -43,11 +43,9 @@ export class AgregarEditarTransporteComponent implements OnInit {
   obtenerTransporte(id: number){
      this._transporteService.getTransporte(id).subscribe({
       next: data=>{
-        this.form.patchValue({
-            nombre: data.nombre,
-            apellido: data.apellido,
-            cuit: data.cuit
-        })
+        this.form.get('nombre').setValue(data.nombre);
+        this.form.get('apellido').setValue(data.apellido);
+        this.form.get('cuit').setValue(data.cuit)
       }
      })
   }

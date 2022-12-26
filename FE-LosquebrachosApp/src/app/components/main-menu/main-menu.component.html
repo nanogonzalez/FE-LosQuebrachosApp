@@ -1,0 +1,39 @@
+<mat-toolbar >
+    <mat-toolbar-row>
+        <button mat-button (click)="opened=!opened"><mat-icon>menu</mat-icon></button>
+        <img src="assets/images/logo.jpg">
+        <ul *ngIf="auth.user$ | async as user">
+            <li>{{ user.name }}</li>
+          </ul>
+        <button (click)="logOut()" mat-raised-button color="primary">Cerrar Sesión</button>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-sidenav-container>
+    <mat-sidenav [(opened)]="opened" mode="side" >
+       <mat-list>
+        <mat-list-item>
+            <a class="items" routerLink="/listTransporte">Listado de Transportes</a>
+        </mat-list-item>
+        <mat-list-item>
+            <a class="items" routerLink="/listChofer">Listado de Choferes</a>
+        </mat-list-item>
+        <mat-list-item>
+            <a class="items" routerLink="/listVehiculo">Listado de Vehículos</a>
+        </mat-list-item>
+        <mat-list-item>
+            <a class="items" routerLink="/listCliente">Listado de Clientes</a>
+        </mat-list-item>
+        <mat-list-item>
+            <a class="items" routerLink="/listOrdenDeCarga">Ordenes de Carga</a>
+        </mat-list-item>
+        <mat-list-item>
+            <a class="items" routerLink="/listOrdenDeGasoil">Ordenes de Gasoil</a>
+        </mat-list-item>
+    </mat-list>
+    </mat-sidenav>
+    <mat-sidenav-content> 
+            <div class="componente">
+               <router-outlet></router-outlet>
+            </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

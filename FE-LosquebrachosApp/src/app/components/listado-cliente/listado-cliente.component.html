@@ -1,6 +1,3 @@
-<div class="logo">
-    <img src="assets/images/logo.jpg">
-</div>
 
 <div class="container">
 
@@ -10,10 +7,10 @@
 
     <mat-form-field appearance="standard">
         <mat-label>Filtrar</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input autocomplete="off">
+        <input matInput placeholder="Buscar" #input autocomplete="off">
     </mat-form-field>
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSortDirection="asc" matSortDisableClear matSortActive="razonSocial" matSort>
 
         <ng-container matColumnDef="razonSocial">
           <th mat-header-cell *matHeaderCellDef mat-sort-header > Razón Social </th>
@@ -27,7 +24,7 @@
 
         <ng-container matColumnDef="destinoCarga" >
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Destino de Carga </th>
-            <td mat-cell *matCellDef="let element"> {{element.cuit}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.destinoCarga}} </td>
           </ng-container>
 
         <ng-container matColumnDef="acciones" >
@@ -46,9 +43,7 @@
       
       <div class="footer">
 
-        <button class="agregar" routerLink="/menuLosquebrachos" matTooltip="Volver al menú principal" mat-raised-button color="primary">Volver</button>
-
-        <mat-paginator [pageSizeOptions]="[10]"
+        <mat-paginator [length]="dataSource.itemCount" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"
         showFirstLastButtons 
         aria-label="Select page of periodic elements">
         </mat-paginator>

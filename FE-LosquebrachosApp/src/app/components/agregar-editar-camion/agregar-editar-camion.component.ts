@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { map, Observable, startWith } from 'rxjs';
 import { Camion } from 'src/app/interfaces/camion';
 import { Transporte } from 'src/app/interfaces/transporte';
 import { CamionService } from 'src/app/services/camion.service';
@@ -23,10 +24,11 @@ interface Tipo {
 })
 export class AgregarEditarCamionComponent implements OnInit{
 
+  transportes: Transporte[] = [];
+  filteredTransportes: Observable<Transporte[]>;
+
   form: FormGroup;
   id: number;
-
-  transportes: Transporte[] = [];
 
   operacion: string = 'Agregar';
 
@@ -54,16 +56,44 @@ export class AgregarEditarCamionComponent implements OnInit{
     })
 
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
+
    }
 
   ngOnInit(): void {
 
     this.obtenerTransporte();
 
-    if (this.id != 0){
+   if (this.id != 0){
       this.operacion = 'Editar';
       this.obtenerVehiculo(this.id);
     }
+
+    this.filteredTransportes = this.form.get("transporte").valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const transporte = typeof value === 'string' ? value : value?.apellido;
+        return transporte ? this._filterTransporte(transporte as string) : this.transportes.slice();
+      }),
+    ); 
+  }
+
+  displayTransporte(transporte: Transporte): string {
+    return transporte && transporte.nombre + " " + transporte.apellido ? transporte.nombre + " " + transporte.apellido: '';
+  }
+
+  private _filterTransporte(apellido: string): Transporte[] {
+    const filterValue = apellido.toLowerCase();
+
+    return this.transportes.filter(transporte => transporte.apellido.toLowerCase().includes(filterValue));
+  }
+
+  
+  obtenerTransporte(){
+    this._transporteService.getTransportes().subscribe({
+      next: data =>{
+         this.transportes = data.data;
+      }
+    })
   }
 
   obtenerVehiculo(id: number){
@@ -73,7 +103,8 @@ export class AgregarEditarCamionComponent implements OnInit{
           acoplado: data.acoplado,
           chasis: data.chasis,
           tipo: data.tipo,
-          capacidadTN: data.capacidadTN
+          capacidadTN: data.capacidadTN,
+          transporte: data.transporte
         })
       }
      })
@@ -118,12 +149,5 @@ export class AgregarEditarCamionComponent implements OnInit{
    });
   }
 
-  obtenerTransporte(){
-    this._transporteService.getTransportes().subscribe({
-      next: data =>{
-         this.transportes = data.data;
-      }
-    })
-  }
 
 }

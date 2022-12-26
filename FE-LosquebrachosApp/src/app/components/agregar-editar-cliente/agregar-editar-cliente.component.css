@@ -27,3 +27,15 @@ mat-form-field{
 .btnAceptar{
     margin-right: 10px;
 }
+.input-area {
+    text-align: start;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 30px;
+  }
+.input{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}

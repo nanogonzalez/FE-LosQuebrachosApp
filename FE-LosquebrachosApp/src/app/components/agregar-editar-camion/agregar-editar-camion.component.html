@@ -1,6 +1,4 @@
-<div class="logo">
-    <img src="assets/images/logo.jpg">
-</div>
+
 <div class="container">
  
     <div class="title">
@@ -47,18 +45,17 @@
                 </mat-grid-tile>
                 <mat-grid-tile>
                     <mat-form-field appearance="outline">
-                        <mat-label>Adjudicar Transporte</mat-label>
-                        <mat-select formControlName="transporte">
-                            <mat-option *ngFor="let transporte of transportes" [value]="transporte.nombre">
-                              {{transporte.nombre}}
-                              {{transporte.apellido}}
-                            </mat-option>
-                          </mat-select>
+                        <mat-label for="dataList">Adjudicar Transporte</mat-label>
+                        <input type="text" matInput [matAutocomplete]="auto" formControlName="transporte" placeholder="Buscar por apellido">
+                        <mat-autocomplete [panelWidth]="200" #auto="matAutocomplete" [displayWith]="displayTransporte">
+                        <mat-option *ngFor="let transporte of filteredTransportes | async" [value]="transporte">
+                        <span>{{transporte.nombre}} {{transporte.apellido}}</span>
+                        </mat-option>
+                        </mat-autocomplete>
                     </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>
                     <button [disabled]="form.invalid" type="submit" class="btnAceptar" mat-raised-button color="primary">Aceptar</button>
-                    <button mat-raised-button routerLink="/listVehiculo">Volver</button>
                 </mat-grid-tile>
               </mat-grid-list>
         </form>

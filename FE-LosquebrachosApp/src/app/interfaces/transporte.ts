@@ -4,3 +4,4 @@ export interface Transporte{
     apellido: string,
     cuit: number
 }
+

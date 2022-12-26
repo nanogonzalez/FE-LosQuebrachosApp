@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -15,8 +15,14 @@ import { PagedResponse } from '../interfaces/pagedResponse';
   
     constructor(private hhtp: HttpClient) { }
   
-    getOrdenesDeCargas(): Observable<PagedResponse<OrdenDeCarga>>{
-      return this.hhtp.get<PagedResponse<OrdenDeCarga>>(`${this.myAppUrl}${this.myApiUrl}`);
+    getOrdenesDeCargas(search = '', sortOrder = 'asc' , pageNumber = 1, pageSize = 10): Observable<PagedResponse<OrdenDeCarga>>{
+      return this.hhtp.get<PagedResponse<OrdenDeCarga>>(`${this.myAppUrl}${this.myApiUrl}`, {
+        params: new HttpParams()
+        .set('search', search)
+        .set('sortOrder', sortOrder)
+        .set('pageNumber', pageNumber.toString())
+        .set('pageSize', pageSize.toString())
+      });
     }
   
     getOrdenDeCarga(id: number): Observable<OrdenDeCarga>{

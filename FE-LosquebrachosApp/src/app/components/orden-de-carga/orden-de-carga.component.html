@@ -1,0 +1,74 @@
+
+
+<div class="container">
+
+    <div class="title">
+        <h1>{{operacion}} Orden De Carga</h1>
+    </div>
+
+    <mat-card class="card mat-elevation-z8">
+        <mat-card-subtitle>  
+            Información de la Orden de Carga
+        </mat-card-subtitle>
+
+        <div>
+            <app-map-display [from]="fromValue" [to]="toValue" class="map"></app-map-display>
+        </div>
+   
+    <div class="input-area">
+        <div>
+            <h4>Ingrese un destino de carga:</h4>
+            <app-place-autocomplete (placeChanged)="fromValue = $event"></app-place-autocomplete>
+        </div>
+        
+        <div>
+            <h4>Ingrese un destino de descarga:</h4>
+            <app-place-autocomplete (placeChanged)="toValue = $event"></app-place-autocomplete>
+        </div>
+        
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="agregarEditarOrdenDeCarga()">
+        <mat-grid-list cols="2" rowHeight="80px">
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Destino de Carga:</mat-label>
+                    <input matInput formControlName="destinoCarga" autocomplete="off"/> 
+                    <!--<span>{{fromValue.name}}</span>-->
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Destino de Descarga:</mat-label>
+                    <input matInput formControlName="destinoDescarga" autocomplete="off"/> 
+                    <!--<span>{{toValue.name}}</span>-->
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Día y Hora de Carga:</mat-label>
+                    <input type="datetime-local" formControlName="diaHoraCarga" matInput autocomplete="off">
+                </mat-form-field>
+            </mat-grid-tile>
+           
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Tipo de Mercadería:</mat-label>
+                    <mat-select formControlName="tipoMercaderia" name="mercaderia">
+                        <mat-option *ngFor="let mercaderia of mercaderias" [value]="mercaderia.value">
+                          {{mercaderia.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <button [disabled]="form.invalid" type="submit" class="btnAceptar" mat-raised-button color="primary">Aceptar</button>
+            </mat-grid-tile>
+          </mat-grid-list>
+    </form> 
+   
+    </mat-card>
+        
+</div>
+    
+

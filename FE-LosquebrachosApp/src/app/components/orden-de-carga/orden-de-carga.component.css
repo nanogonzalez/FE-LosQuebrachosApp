@@ -1,0 +1,34 @@
+.logo{
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+img{
+  width: 30%;
+}
+
+.input-area {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    
+  }
+
+  .container{
+    margin: 0 25%;
+}
+.map{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.btnAceptar{
+  margin-right: 10px;
+}
+
+  

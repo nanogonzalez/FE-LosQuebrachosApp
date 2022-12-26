@@ -1,5 +1,5 @@
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -18,8 +18,14 @@ import { PagedResponse } from '../interfaces/pagedResponse';
   
     constructor(private hhtp: HttpClient) { }
   
-    getVehiculos(): Observable<PagedResponse<Camion>>{
-      return this.hhtp.get<PagedResponse<Camion>>(`${this.myAppUrl}${this.myApiUrl}`);
+    getVehiculos(search = '', sortOrder = 'asc' , pageNumber = 1, pageSize = 10): Observable<PagedResponse<Camion>>{
+      return this.hhtp.get<PagedResponse<Camion>>(`${this.myAppUrl}${this.myApiUrl}`, {
+        params: new HttpParams()
+        .set('search', search)
+        .set('sortOrder', sortOrder)
+        .set('pageNumber', pageNumber.toString())
+        .set('pageSize', pageSize.toString())
+      });
     }
   
     getVehiculo(id: number): Observable<Camion>{

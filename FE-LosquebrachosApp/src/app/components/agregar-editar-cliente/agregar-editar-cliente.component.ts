@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from 'src/app/interfaces/cliente';
 import { Transporte } from 'src/app/interfaces/transporte';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { PlaceSearchResult } from '../place-autocomplete/place-autocomplete.component';
 
 @Component({
   selector: 'app-agregar-editar-cliente',
@@ -13,6 +14,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 })
 export class AgregarEditarClienteComponent implements OnInit {
 
+  fromValue: PlaceSearchResult = { address: '' };
   
   form: FormGroup;
   id: number;

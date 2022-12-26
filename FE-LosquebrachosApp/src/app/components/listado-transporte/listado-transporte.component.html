@@ -1,58 +1,54 @@
-<div class="logo">
-    <img src="assets/images/logo.jpg">
-</div>
 
 <div class="container">
 
-    <div class="title">
-        <h1>Transportes</h1>
+  <div class="title">
+      <h1>Transportes</h1>
+  </div>
+
+  <mat-form-field appearance="standard">
+      <mat-label>Filtrar</mat-label>
+      <input matInput  placeholder="Buscar por Apellido" #input autocomplete="off">
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSortActive="nombre" matSortActive="apellido" matSortDirection="asc" matSortDisableClear matSort>
+
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header > Nombre </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="apellido" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellido </th>
+        <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="cuit" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cuit </th>
+        <td mat-cell *matCellDef="let element"> {{element.cuit}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones" >
+          <th mat-header-cell *matHeaderCellDef > 
+              <button class="agregar" routerLink='/agregarTransporte' matTooltip="Agregar Transporte" mat-raised-button color="primary">Agregar</button> 
+          </th>
+          <td mat-cell *matCellDef="let element"> 
+              <mat-icon routerLink="/editarTransporte/{{element.id}}" matTooltip="Editar" class="edit" fontIcon="edit"></mat-icon>    
+              <mat-icon (click)="eliminarTransporte(element.id)"  matTooltip="Eliminar" class="delete" fontIcon="delete"></mat-icon>     
+          </td>
+        </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    
+    <div class="footer">
+     
+      <mat-paginator [length]="dataSource.itemCount" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons 
+      aria-label="Select page of periodic elements">
+      </mat-paginator>
+
     </div>
-
-    <mat-form-field appearance="standard">
-        <mat-label>Filtrar</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input autocomplete="off">
-    </mat-form-field>
-
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-
-        <ng-container matColumnDef="nombre">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header > Nombre </th>
-          <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-        </ng-container>
-      
-        <ng-container matColumnDef="apellido" >
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellido </th>
-          <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
-        </ng-container>
-      
-        <ng-container matColumnDef="cuit" >
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Cuit </th>
-          <td mat-cell *matCellDef="let element"> {{element.cuit}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="acciones" >
-            <th mat-header-cell *matHeaderCellDef > 
-                <button class="agregar" routerLink="/agregarTransporte" matTooltip="Agregar Transporte" mat-raised-button color="primary">Agregar</button> 
-            </th>
-            <td mat-cell *matCellDef="let element"> 
-                <mat-icon routerLink="/editarTransporte/{{element.id}}" matTooltip="Editar" class="edit" fontIcon="edit"></mat-icon>    
-                <mat-icon (click)="eliminarTransporte(element.id)"  matTooltip="Eliminar" class="delete" fontIcon="delete"></mat-icon>     
-            </td>
-          </ng-container>
-      
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-      
-      <div class="footer">
-
-        <button class="agregar" routerLink="/menuLosquebrachos" matTooltip="Volver al menú principal" mat-raised-button color="primary">Volver</button>
-
-        <mat-paginator [pageSizeOptions]="[10]"
-        showFirstLastButtons 
-        aria-label="Select page of periodic elements">
-        </mat-paginator>
-
-      </div>
-      
+    
 </div>
+
