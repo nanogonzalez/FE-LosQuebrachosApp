@@ -33,7 +33,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Adjudicar Transporte</mat-label>
                         <input type="text" matInput [matAutocomplete]="auto"
-                        [formControl]="transporteControl" formControlName="transporte" placeholder="Buscar">
+                         formControlName="transporte" placeholder="Buscar">
                         <mat-autocomplete [panelWidth]="300" #auto="matAutocomplete" [displayWith]="displayFn">
                         <mat-option *ngFor="let transporte of filteredTransportes | async" [value]="transporte">
                         <span>{{transporte.nombre}} {{transporte.apellido}}</span>

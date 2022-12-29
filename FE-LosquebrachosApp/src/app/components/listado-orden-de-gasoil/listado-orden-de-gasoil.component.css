@@ -1,0 +1,43 @@
+table{
+  width: 100%;
+}
+
+.container{
+  margin: 0 5%;
+}
+td, th{
+  width: 5%;
+}
+mat-paginator{
+  margin-top: 10px;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.delete {
+  cursor: pointer;
+  color: #E15639
+}
+
+.edit {
+  cursor: pointer;
+  color: #1878B0
+}
+
+.search {
+  cursor: pointer;
+}
+
+.agregar {
+  font-size: 10px;
+  line-height: 28px;
+}
+
+.footer{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+ 
+}

@@ -6,8 +6,8 @@ import { Chofer } from 'src/app/interfaces/chofer';
 import { Transporte } from 'src/app/interfaces/transporte';
 import { ChoferService } from 'src/app/services/chofer.service';
 import { TransporteService } from 'src/app/services/transporte.service';
-import { FormControl } from '@angular/forms';
 import { Observable, startWith, map } from 'rxjs';
+
 
 
 @Component({
@@ -20,7 +20,7 @@ export class AgregarEditarChoferComponent implements OnInit {
   transportes: Transporte[] = [];
 
   filteredTransportes: Observable<Transporte[]>;
-  transporteControl = new FormControl<string | Transporte>('');
+  
 
   form: FormGroup;
   id: number;
@@ -36,7 +36,6 @@ export class AgregarEditarChoferComponent implements OnInit {
     })
 
     
-
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
   }
 
@@ -51,7 +50,7 @@ export class AgregarEditarChoferComponent implements OnInit {
       this.obtenerChofer(this.id);
     }
  
-    this.filteredTransportes = this.transporteControl.valueChanges.pipe(
+    this.filteredTransportes = this.form.get("transporte").valueChanges.pipe(
       startWith(''),
       map(value => {
         const apellido = typeof value === 'string' ? value : value?.apellido;
@@ -90,7 +89,7 @@ export class AgregarEditarChoferComponent implements OnInit {
       nombre: this.form.value.nombre,
       apellido: this.form.value.apellido,
       cuit: this.form.value.cuit,
-      transporte: this.form.value.transporte
+      transporte: this.form.value.transporte,
     }
 
     if (this.id != 0){
@@ -128,8 +127,8 @@ export class AgregarEditarChoferComponent implements OnInit {
 
   obtenerTransporte(){
     this._transporteService.getTransportes().subscribe({
-      next: data =>{
-         this.transportes = data.data;
+      next: response =>{
+         this.transportes = response.data;
       }
     })
   }

@@ -90,8 +90,8 @@ export class AgregarEditarCamionComponent implements OnInit{
   
   obtenerTransporte(){
     this._transporteService.getTransportes().subscribe({
-      next: data =>{
-         this.transportes = data.data;
+      next: response =>{
+         this.transportes = response.data;
       }
     })
   }
