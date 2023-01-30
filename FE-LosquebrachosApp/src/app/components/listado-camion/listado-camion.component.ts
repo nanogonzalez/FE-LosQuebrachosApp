@@ -24,21 +24,18 @@ export class ListadoCamionComponent implements OnInit, AfterViewInit {
   constructor(private _snackBar: MatSnackBar, private _vehiculoService: CamionService, private _dialogService: ConfirmBoxService) { }
 
   ngOnInit(): void {
-    /*this.obtenerVehiculo();*/
     this.dataSource = new VehiculoDataSource(this._vehiculoService);
     this.dataSource.loadVehiculos('', 'asc', 1, 10);
   }
 
   ngAfterViewInit() {
-   /* this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;*/
     this.paginator._intl.itemsPerPageLabel= "Items por página";
     fromEvent(this.input.nativeElement,'keyup')
             .pipe(
                 debounceTime(150),
                 distinctUntilChanged(),
                 tap(() => {
-                    this.paginator.pageIndex = 1;
+                    this.paginator.pageIndex = 0;
                     this.loadVehiculosPage();
                 })
             )
@@ -52,19 +49,6 @@ export class ListadoCamionComponent implements OnInit, AfterViewInit {
     )
     .subscribe();
   }
-
-  /*applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  obtenerVehiculo(){
-    this._vehiculoService.getVehiculos().subscribe({
-      next: data=>{
-        this.dataSource.data = data.data;
-      }
-    })
-  }*/
 
   loadVehiculosPage(){
     const page = this.paginator.pageIndex + 1;
@@ -84,7 +68,6 @@ export class ListadoCamionComponent implements OnInit, AfterViewInit {
         this._vehiculoService.deleteVehiculo(id).subscribe(()=>{
         this.mensajeExito();
         this.loadVehiculosPage();
-        /*this.obtenerVehiculo();*/
       })
     }
    })

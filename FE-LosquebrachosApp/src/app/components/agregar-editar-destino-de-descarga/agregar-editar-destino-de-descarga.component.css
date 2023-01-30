@@ -1,0 +1,38 @@
+
+.container{
+    margin: 0 25%;
+}
+.card{
+    margin-top: 10px;
+    text-align: center;
+}
+mat-card-subtitle{
+    text-align: left;
+    margin-bottom: 20px;
+    margin-left: 35px;
+}
+mat-form-field{
+    width: 90%;
+}
+.btnAceptar{
+    margin-right: 10px;
+}
+.input-area {
+    text-align: start;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 30px;
+  }
+.input{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+h4{
+    margin-right: 20px;
+}
+
+.map-btn{
+    margin-top: 10px;
+}

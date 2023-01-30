@@ -1,14 +1,5 @@
 
-.logo{
-    background-color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-}
-img{
-    width: 30%;
-}
+
 .container{
     margin: 0 25%;
 }
@@ -38,4 +29,7 @@ mat-form-field{
     align-items: center;
     gap: 10px;
     margin-top: 20px;
+}
+h4{
+    margin-right: 20px;
 }

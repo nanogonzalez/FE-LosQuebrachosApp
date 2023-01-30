@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable, startWith } from 'rxjs';
+import { debounceTime, distinctUntilChanged, fromEvent, tap } from 'rxjs';
 import { Camion } from 'src/app/interfaces/camion';
 import { Chofer } from 'src/app/interfaces/chofer';
 import { OrdenDeGasoil } from 'src/app/interfaces/orden-de-gasoil';
@@ -33,25 +34,26 @@ export class AgregarOrdenDeGasoilComponent implements OnInit {
     {value: 'Estación Corbal Pueblo Casas', viewValue: 'Estación Corbal Pueblo Casas'},
   ];
 
+  @ViewChild('inputCamion') inputCamion: ElementRef; 
+  @ViewChild('inputChofer') inputChofer: ElementRef; 
+  @ViewChild('inputTransporte') inputTransporte: ElementRef;
+
   form: FormGroup;
   id: number;
   operacion: string = 'Agregar';
 
+  transporte: Transporte;
+
   transportes: Transporte[] = [];
-  filteredTransportes: Observable<Transporte[]>;
-
   camiones: Camion[] = [];
-  filteredChasis: Observable<Camion[]>;
-
   choferes: Chofer[] = [];
-  filteredChoferes: Observable<Chofer[]>;
 
   constructor(private fb: FormBuilder, private _ordenDeGasoilService: OrdenDeGasoilService, private _snackBar: MatSnackBar, private router: Router, private aRoute: ActivatedRoute, private _transporteService: TransporteService, private _choferService: ChoferService, private _camionService: CamionService) { 
+
     this.form = this.fb.group({
-      numeroOrden: ['', Validators.required],
       fecha: ['', Validators.required],
       chofer: ['', Validators.required],
-      chasis: ['', Validators.required],
+      vehiculo: ['', Validators.required],
       transporte: ['', Validators.required],
       cuitTransporte: ['', Validators.required],
       litros: ['', Validators.required],
@@ -65,44 +67,84 @@ export class AgregarOrdenDeGasoilComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.obtenerTransporte();
-
-    this.obtenerChofer();
-
-    this.obtenerCamion();
+    this.transporte = null;
 
     if (this.id != 0){
       this.operacion = 'Editar';
       this.obtenerOrdenDeGasoil(this.id);
     }
 
-    this.filteredTransportes = this.form.get("transporte").valueChanges.pipe(
-      startWith(''),
-      map(value => {
-        const transporte = typeof value === 'string' ? value : value?.apellido;
-        return transporte ? this._filterTransporte(transporte as string) : this.transportes.slice();
-      }),
-    ); 
+  }
 
-    this.filteredChasis = this.form.get("chasis").valueChanges.pipe(
-      startWith(''),
-      map(value => {
-        const chasis = typeof value === 'string' ? value : value?.chasis;
-        return chasis ? this._filterChasis(chasis as string) : this.camiones.slice();
-      }),
-    ); 
+  ngAfterViewInit(){
 
-    this.filteredChoferes = this.form.get("chofer").valueChanges.pipe(
-      startWith(''),
-      map(value => {
-        const chofer = typeof value === 'string' ? value : value?.apellido;
-        return chofer ? this._filterChofer(chofer as string) : this.choferes.slice();
-      }),
-    ); 
+    fromEvent(this.inputTransporte.nativeElement,'keyup')
+            .pipe(
+                debounceTime(150),
+                distinctUntilChanged(),
+                tap(() => {
+                    this.loadTransportes(this.inputTransporte.nativeElement.value);
+                })
+            )
+            .subscribe();
+  
+    fromEvent(this.inputChofer.nativeElement,'keyup')
+            .pipe(
+                debounceTime(150),
+                distinctUntilChanged(),
+                tap(() => {
+                    this.loadChoferes(this.inputChofer.nativeElement.value);
+                })
+            )
+            .subscribe();
+            
+    fromEvent(this.inputCamion.nativeElement,'keyup')
+            .pipe(
+                debounceTime(150),
+                distinctUntilChanged(),
+                tap(() => {
+                    this.loadCamiones(this.inputCamion.nativeElement.value);
+                })
+            )
+            .subscribe();    
 
   }
 
-  displayTransporte(transporte: Transporte): string {
+  
+  loadTransportes(query = ''){
+    this._transporteService.getTransportes(query).subscribe({
+      next: response =>{
+        this.transportes = response.data;
+      }
+    })
+   }
+
+  loadChoferes(query: string, sortOrder = 'asc', pageNumber = 0, pageSize = 10){
+    if(this.transporte){
+        this._choferService.getChoferesByTransporte(query, sortOrder, pageNumber, pageSize, this.transporte.id).subscribe(
+          result =>{
+            this.choferes = result.data;
+          }
+        );
+    }
+ }
+
+ loadCamiones(query: string, sortOrder = 'asc', pageNumber = 0, pageSize = 10){
+  if(this.transporte){
+    this._camionService.getVehiculosByTransporte(query, sortOrder, pageNumber, pageSize, this.transporte.id).subscribe({
+      next: result =>{
+        this.camiones = result.data;
+      }
+    });
+  }
+ }
+
+ selectedTransporte(event: MatAutocompleteSelectedEvent){
+    this.transporte = event.option.value;
+    this.form.controls['cuitTransporte'].setValue(this.transporte.cuit);
+ }
+
+ displayTransporte(transporte: Transporte): string {
     return transporte && transporte.nombre + " " + transporte.apellido ? transporte.nombre + " " + transporte.apellido: '';
   }
 
@@ -110,36 +152,18 @@ export class AgregarOrdenDeGasoilComponent implements OnInit {
     return chofer && chofer.nombre + " " + chofer.apellido ? chofer.nombre + " " + chofer.apellido: '';
   }
 
-  displayChasis(chasis: Camion): string {
-    return chasis && chasis.chasis ? chasis.chasis: '';
+  displayCamion(camion: Camion): string {
+    return camion && camion.chasis ? camion.chasis: '';
   }
 
-  private _filterTransporte(apellido: string): Transporte[] {
-    const filterValue = apellido.toLowerCase();
-
-    return this.transportes.filter(transporte => transporte.apellido.toLowerCase().includes(filterValue));
-  }
-
-  private _filterChasis(chasis: string): Camion[] {
-    const filterValue = chasis.toLowerCase();
-
-    return this.camiones.filter(chasis => chasis.chasis.toLowerCase().includes(filterValue));
-  }
-
-  private _filterChofer(chofer: string): Chofer[] {
-    const filterValue = chofer.toLowerCase();
-
-    return this.choferes.filter(chofer => chofer.apellido.toLowerCase().includes(filterValue));
-  }
 
   obtenerOrdenDeGasoil(id: number){
     this._ordenDeGasoilService.getOrdenDeGasoil(id).subscribe({
      next: data=>{
        this.form.patchValue({
-        numeroOrden: data.numeroOrden,
         fecha: data.fecha,
         chofer: data.chofer,
-        chasis: data.chasis,
+        vehiculo: data.vehiculo,
         transporte: data.transporte,
         cuitTransporte: data.cuitTransporte,
         litros: data.litros,
@@ -151,10 +175,9 @@ export class AgregarOrdenDeGasoilComponent implements OnInit {
 
  agregarEditarOrdenDeGasoil(){
   const ordenDeGasoil: OrdenDeGasoil = {
-    numeroOrden: this.form.value.numeroOrden,
     fecha: this.form.value.fecha,
     chofer: this.form.value.chofer,
-    chasis: this.form.value.chasis,
+    vehiculo: this.form.value.vehiculo,
     transporte: this.form.value.transporte,
     cuitTransporte: this.form.value.cuitTransporte,
     litros: this.form.value.litros,
@@ -188,30 +211,6 @@ mensajeExito(texto: string){
     duration: 2000,
     horizontalPosition: 'left'
  });
-}
-
-obtenerTransporte(){
-  this._transporteService.getTransportes().subscribe({
-    next: data =>{
-       this.transportes = data.data;
-    }
-  })
-}
-
-obtenerChofer(){
-  this._choferService.getChoferes().subscribe({
-    next: data =>{
-       this.choferes = data.data;
-    }
-  })
-}
-
-obtenerCamion(){
-  this._camionService.getVehiculos().subscribe({
-    next: data =>{
-       this.camiones = data.data;
-    }
-  })
 }
 
 }

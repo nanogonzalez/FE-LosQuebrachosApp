@@ -26,7 +26,6 @@
     "@geoapify/angular-geocoder-autocomplete": "^1.4.0",
     "@geoapify/geocoder-autocomplete": "^1.4.2",
     "flatpickr": "^4.6.13",
-    "jspdf": "^2.5.1",
     "leaflet": "^1.9.2",
     "ng-confirm-box": "^0.0.6",
     "rxjs": "~7.5.0",

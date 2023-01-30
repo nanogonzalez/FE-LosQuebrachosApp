@@ -15,6 +15,7 @@ import { PagedResponse } from '../interfaces/pagedResponse';
     private myAppUrl: string = environment.endpoint;
     private myApiUrl: string = 'api/Chofer/';
     
+    
     constructor(private hhtp: HttpClient) { }
 
 
@@ -27,6 +28,17 @@ import { PagedResponse } from '../interfaces/pagedResponse';
         .set('pageSize', pageSize.toString())
       });
     }
+
+    getChoferesByTransporte(search = '', sortOrder = 'asc' , pageNumber = 1, pageSize = 10, id: number): Observable<PagedResponse<Chofer>>{
+      return this.hhtp.get<PagedResponse<Chofer>>(`${this.myAppUrl}${this.myApiUrl}Transporte/${id}`,{
+        params: new HttpParams()
+        .set('search', search)
+        .set('sortOrder', sortOrder)
+        .set('pageNumber', pageNumber.toString())
+        .set('pageSize', pageSize.toString())
+      });
+    }
+
     
     getChofer(id: number): Observable<Chofer>{
       return this.hhtp.get<Chofer>(`${this.myAppUrl}${this.myApiUrl}${id}`);

@@ -6,19 +6,8 @@
     </div>
 
     <mat-card class="card mat-elevation-z8">
-        <!--<mat-card-subtitle>
-            <h1>LOS QUEBRACHOS S.R.L.</h1>
-            <h3>Domicilio: Libertad 561 - 3730 - Charata - Chaco - CUIT: 30717216071</h3>
-            <h3>Tel.: 03731-420924</h3>
-        </mat-card-subtitle>-->
         <form [formGroup]="form" (ngSubmit)="agregarEditarOrdenDeGasoil()">
             <mat-grid-list cols="2" rowHeight="80px">
-                <mat-grid-tile>
-                    <mat-form-field appearance="outline">
-                            <mat-label>Orden de Carga de Gasoil:</mat-label>
-                            <input type="number" formControlName="numeroOrden" matInput autocomplete="off">
-                    </mat-form-field>
-                </mat-grid-tile>
                 <mat-grid-tile>
                     <mat-form-field appearance="outline">
                         <mat-label>Fecha:</mat-label>
@@ -27,11 +16,29 @@
                 </mat-grid-tile>
                 <mat-grid-tile>
                     <mat-form-field appearance="outline">
+                        <mat-label>Transporte:</mat-label>
+                        <input #inputTransporte autocomplete="off" matInput [matAutocomplete]="autoTransporte"
+                         formControlName="transporte" placeholder="Buscar por apellido">
+                        <mat-autocomplete [panelWidth]="200" (optionSelected)="selectedTransporte($event)" #autoTransporte="matAutocomplete" [displayWith]="displayTransporte">
+                        <mat-option *ngFor="let transporte of transportes" [value]="transporte">
+                        <span>{{transporte.nombre}} {{transporte.apellido}}</span>
+                        </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </mat-grid-tile>
+                    <mat-grid-tile *ngIf="transporte">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Cuit:</mat-label>
+                            <input formControlName="cuitTransporte" [value]="transporte.cuit" [disabled]="true" matInput autocomplete="off">
+                        </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
                         <mat-label>Chofer autorizado:</mat-label>
-                        <input type="text" matInput [matAutocomplete]="auto"
+                        <input #inputChofer autocomplete="off" matInput [matAutocomplete]="autoChofer"
                          formControlName="chofer" placeholder="Buscar">
-                        <mat-autocomplete [panelWidth]="300" #auto="matAutocomplete" [displayWith]="displayChofer">
-                        <mat-option *ngFor="let chofer of filteredChoferes | async" [value]="chofer">
+                        <mat-autocomplete [panelWidth]="300" #autoChofer="matAutocomplete" [displayWith]="displayChofer">
+                        <mat-option *ngFor="let chofer of choferes" [value]="chofer">
                         <span>{{chofer.nombre}} {{chofer.apellido}}</span>
                         </mat-option>
                         </mat-autocomplete>
@@ -40,33 +47,14 @@
                 <mat-grid-tile>
                     <mat-form-field appearance="outline">
                         <mat-label>Patente:</mat-label>
-                        <input type="text" matInput [matAutocomplete]="auto"
-                         formControlName="chasis" placeholder="Buscar">
-                        <mat-autocomplete [panelWidth]="300" #auto="matAutocomplete" [displayWith]="displayChasis">
-                        <mat-option *ngFor="let chasis of filteredChasis | async" [value]="chasis">
-                        <span>{{chasis.chasis}}</span>
+                        <input #inputCamion autocomplete="off" matInput [matAutocomplete]="autoCamion"
+                         formControlName="vehiculo" placeholder="Buscar">
+                        <mat-autocomplete [panelWidth]="200" #autoCamion="matAutocomplete" [displayWith]="displayCamion">
+                        <mat-option *ngFor="let camion of camiones" [value]="camion">
+                        <span>{{camion.chasis}}</span>
                         </mat-option>
                         </mat-autocomplete>
                     </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Transporte:</mat-label>
-                        <input type="text" matInput [matAutocomplete]="auto"
-                         formControlName="transporte" placeholder="Buscar">
-                        <mat-autocomplete [panelWidth]="300" #auto="matAutocomplete" [displayWith]="displayTransporte">
-                        <mat-option *ngFor="let transporte of filteredTransportes | async" [value]="transporte">
-                        <span>{{transporte.nombre}} {{transporte.apellido}}</span>
-                        </mat-option>
-                        </mat-autocomplete>
-                    </mat-form-field>
-                </mat-grid-tile>
-                    <mat-grid-tile>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Cuit:</mat-label>
-                            <input type="number" formControlName="cuitTransporte" matInput autocomplete="off">
-                            <span></span>
-                        </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>
                     <mat-form-field appearance="outline">

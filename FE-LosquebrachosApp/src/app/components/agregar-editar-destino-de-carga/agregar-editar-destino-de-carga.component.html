@@ -1,0 +1,60 @@
+
+
+<div class="container">
+ 
+    <div class="title">
+        <h1>{{operacion}} Puntos de Carga</h1>
+    </div>
+
+    <h3>Seleccione en el mapa la ubicación del punto de carga</h3>
+
+    <div #mapRef style="height: 300px;"></div>
+
+    <button class="map-btn" mat-raised-button color="primary" (click)="clearMarker()">Borrar Marker</button> 
+
+    <mat-card class="card mat-elevation-z8">
+        <mat-card-subtitle>
+           Información del Destino de Carga
+        </mat-card-subtitle>
+
+        <form [formGroup]="form" (ngSubmit)="agregarEditarDestinoDeCarga()">
+            <mat-grid-list cols="1" rowHeight="80px">
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Latitud:</mat-label>
+                        <input [(ngModel)]="latitud" formControlName="latitud" matInput autocomplete="off">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Longitud:</mat-label>
+                        <input [(ngModel)]="longitud" formControlName="longitud" matInput autocomplete="off">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nombre del Establecimiento:</mat-label>
+                        <input formControlName="nombreEstablecimiento" matInput autocomplete="off">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Adjudicar Cliente:</mat-label>
+                        <input matInput #input autocomplete="off" [(ngModel)]="selectedCliente" formControlName="cliente" [matAutocomplete]="auto">
+                        <button *ngIf="selectedCliente" matSuffix mat-icon-button aria-label="Clear" (click)="clearSelection()">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-autocomplete [panelWidth]="200" #auto="matAutocomplete" [displayWith]="displayCliente" (optionSelected)="onSelected()">
+                            <mat-option *ngFor="let cliente of clientes" [value]="cliente">
+                                <span>{{cliente.razonSocial}}</span>
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <button [disabled]="form.invalid" type="submit" class="btnAceptar" mat-raised-button color="primary">Aceptar</button>
+                </mat-grid-tile>
+              </mat-grid-list>
+        </form>
+    </mat-card>
+</div>

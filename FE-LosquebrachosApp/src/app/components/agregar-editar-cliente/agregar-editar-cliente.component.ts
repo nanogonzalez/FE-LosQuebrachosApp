@@ -3,9 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from 'src/app/interfaces/cliente';
-import { Transporte } from 'src/app/interfaces/transporte';
 import { ClienteService } from 'src/app/services/cliente.service';
-import { PlaceSearchResult } from '../place-autocomplete/place-autocomplete.component';
+
 
 @Component({
   selector: 'app-agregar-editar-cliente',
@@ -14,8 +13,7 @@ import { PlaceSearchResult } from '../place-autocomplete/place-autocomplete.comp
 })
 export class AgregarEditarClienteComponent implements OnInit {
 
-  fromValue: PlaceSearchResult = { address: '' };
-  
+
   form: FormGroup;
   id: number;
   operacion: string = 'Agregar';
@@ -24,14 +22,11 @@ export class AgregarEditarClienteComponent implements OnInit {
 
     this.form = this.fb.group({
       razonSocial: ['', Validators.required],
-      cuit: ['', Validators.required],
-      destinoCarga: ['', Validators.required]
+      cuit: ['', Validators.required]
     })
 
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
   }
-
-
 
   ngOnInit(): void {
     if (this.id != 0){
@@ -40,22 +35,19 @@ export class AgregarEditarClienteComponent implements OnInit {
     }
   }
 
+
   obtenerCliente(id: number){
     this._clienteService.getCliente(id).subscribe({
      next: data=>{
-       this.form.patchValue({
-         razonSocial: data.razonSocial,
-         cuit: data.cuit,
-         destinoCarga: data.destinoCarga
-       })
+       this.form.get('razonSocial').setValue(data.razonSocial);
+       this.form.get('cuit').setValue(data.cuit);
      }
-    })
+    });
  }
  agregarEditarCliente(){
   const cliente: Cliente = {
     razonSocial: this.form.value.razonSocial,
-    cuit: this.form.value.cuit,
-    destinoCarga: this.form.value.destinoCarga 
+    cuit: this.form.value.cuit
   }
   if (this.id != 0){
     cliente.id = this.id;

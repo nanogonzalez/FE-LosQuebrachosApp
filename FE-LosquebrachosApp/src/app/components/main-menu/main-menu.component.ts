@@ -1,6 +1,5 @@
-import { Component, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
-import { ListadoTransporteComponent } from '../listado-transporte/listado-transporte.component';
 
 @Component({
   selector: 'app-main-menu',
@@ -18,6 +17,8 @@ export class MainMenuComponent implements OnInit {
     {nombre: "Listado de Clientes"},
     {nombre: "Ordenes de Carga"},
     {nombre: "Ordenes de Gasoil"},
+    {nombre: "Puntos De Carga"},
+    {nombre: "Puntos De Descarga"},
   ]
 
   constructor(public auth: AuthService) {

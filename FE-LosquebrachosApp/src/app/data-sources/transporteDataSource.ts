@@ -26,6 +26,7 @@ export class TransporteDataSource implements DataSource<Transporte> {
         this.loadingSubject.complete();
     }
 
+
     loadTransportes(search = '', sortDirection = 'asc', pageIndex = 1, pageSize = 10){
   
         this.loadingSubject.next(true);

@@ -9,13 +9,6 @@
         <mat-card-subtitle>
            Información del Cliente
         </mat-card-subtitle>
-
-        <div class="input-area">
-            <div class="input">
-                <h4>Ingrese un Destino de Carga:</h4>
-                <app-place-autocomplete (placeChanged)="fromValue = $event"></app-place-autocomplete> 
-            </div>
-        </div>
             
         <form [formGroup]="form" (ngSubmit)="agregarEditarCliente()">
             <mat-grid-list cols="1" rowHeight="80px">
@@ -28,17 +21,9 @@
                 <mat-grid-tile>
                     <mat-form-field appearance="outline">
                         <mat-label>Cuit:</mat-label>
-                        <input type="number" formControlName="cuit" matInput autocomplete="off">
+                        <input formControlName="cuit" matInput autocomplete="off">
                     </mat-form-field>
                 </mat-grid-tile>
-                <mat-grid-tile>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Destino de Carga:</mat-label>
-                        <input formControlName="destinoCarga" matInput autocomplete="off">
-                        <!--<span>{{fromValue.name}}</span>-->
-                    </mat-form-field>
-                </mat-grid-tile>
-               
                 <mat-grid-tile>
                     <button [disabled]="form.invalid" type="submit" class="btnAceptar" mat-raised-button color="primary">Aceptar</button>
                 </mat-grid-tile>

@@ -27,15 +27,12 @@ export class ListadoTransporteComponent implements OnInit, AfterViewInit {
 
   
   ngOnInit(): void {
-    /*this.obtenerTransporte();*/
     this.dataSource = new TransporteDataSource(this._transporteService);
     this.dataSource.loadTransportes();
   }
 
   
   ngAfterViewInit() {
-    /*this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;*/
     this.paginator._intl.itemsPerPageLabel= "Items por página";
     fromEvent(this.input.nativeElement,'keyup')
             .pipe(
@@ -48,7 +45,7 @@ export class ListadoTransporteComponent implements OnInit, AfterViewInit {
             )
             .subscribe();
 
-    this.sort.sortChange.subscribe(()=> this.paginator.pageIndex = 0);
+    this.sort.sortChange.subscribe(()=> this.paginator.pageIndex = 1);
 
     merge(this.sort.sortChange, this.paginator.page)
     .pipe(
@@ -68,21 +65,6 @@ export class ListadoTransporteComponent implements OnInit, AfterViewInit {
   }
 
 
-  /*applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }*/
-
-
-
- /* obtenerTransporte(){
-    this._transporteService.getTransportes().subscribe({
-      next: data =>{
-         this.dataSource.data = data.data;
-      }
-    })
-  }*/
-
   eliminarTransporte(id: number){
   
      this._dialogService.openConfirmDialog('Transporte')
@@ -91,7 +73,6 @@ export class ListadoTransporteComponent implements OnInit, AfterViewInit {
         this._transporteService.deleteTransporte(id).subscribe(()=>{
           this.mensajeExito();
           this.loadTransportePage();
-          /*this.obtenerTransporte();*/
           })
       }
      })

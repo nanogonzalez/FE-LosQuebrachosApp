@@ -1,0 +1,58 @@
+
+<div class="container">
+
+    <div class="title">
+        <h1>Puntos de Carga</h1>
+    </div>
+
+    <mat-form-field appearance="standard">
+        <mat-label>Filtrar</mat-label>
+        <input matInput placeholder="Buscar" #input autocomplete="off">
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSortDirection="asc" matSortDisableClear matSortActive="cliente" matSort>
+
+        <ng-container matColumnDef="latitud">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header > Latitud </th>
+          <td mat-cell *matCellDef="let element"> {{element.latitud}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="longitud" >
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Longitud </th>
+          <td mat-cell *matCellDef="let element"> {{element.longitud}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombreEstablecimiento" >
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Establecimiento </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombreEstablecimiento}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cliente" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>
+            <td mat-cell *matCellDef="let element"> {{element.cliente.razonSocial}} </td>
+          </ng-container>
+
+        <ng-container matColumnDef="acciones" >
+            <th mat-header-cell *matHeaderCellDef > 
+                <button class="agregar" routerLink="/agregarDestinoDeCarga" matTooltip="Agregar Punto de Carga" mat-raised-button color="primary">Agregar</button> 
+            </th>
+            <td mat-cell *matCellDef="let element"> 
+                <mat-icon routerLink="/editarDestinoDeCarga/{{element.id}}" matTooltip="Editar" class="edit" fontIcon="edit"></mat-icon>    
+                <mat-icon (click)="eliminarDestinoDeCarga(element.id)"  matTooltip="Eliminar" class="delete" fontIcon="delete"></mat-icon>     
+            </td>
+          </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      
+      <div class="footer">
+
+        <mat-paginator class="mat-elevation-z8" [length]="dataSource.itemCount" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons 
+        aria-label="Select page of periodic elements">
+        </mat-paginator>
+
+      </div>
+      
+</div>

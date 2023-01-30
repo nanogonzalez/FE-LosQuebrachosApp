@@ -1,9 +1,14 @@
-import { Time } from "@angular/common";
+import { Cliente } from "./cliente";
+import { DestinoDeCarga } from "./destino-de-carga";
+import { DestinoDeDescarga } from "./destino-de-descarga";
 
 export interface OrdenDeCarga{
     id?: number,
-    destinoCarga: string,
-    destinoDescarga: string,
+    numeroOrden?: string,
+    destinoDeCarga: DestinoDeCarga,
+    destinoDeDescarga: DestinoDeDescarga,
+    distanciaViaje: number,
     diaHoraCarga: Date,
-    tipoMercaderia: string
+    tipoMercaderia: string,
+    cliente: Cliente
 }

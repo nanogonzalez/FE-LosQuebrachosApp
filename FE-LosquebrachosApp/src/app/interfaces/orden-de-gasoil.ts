@@ -4,12 +4,12 @@ import { Transporte } from "./transporte";
 
 export interface OrdenDeGasoil{
     id?: number,
-    numeroOrden: number,
+    numeroOrden?: string,
     fecha: Date,
     chofer: Chofer,
-    chasis: Camion,
+    vehiculo: Camion,
     transporte: Transporte,
-    cuitTransporte: number,
+    cuitTransporte: string,
     litros: number,
     estacion: string
 }

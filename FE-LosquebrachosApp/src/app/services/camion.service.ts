@@ -28,6 +28,16 @@ import { PagedResponse } from '../interfaces/pagedResponse';
       });
     }
   
+    getVehiculosByTransporte(search = '', sortOrder = 'asc' , pageNumber = 1, pageSize = 10, id: number): Observable<PagedResponse<Camion>>{
+      return this.hhtp.get<PagedResponse<Camion>>(`${this.myAppUrl}${this.myApiUrl}Transporte/${id}`, {
+        params: new HttpParams()
+        .set('search', search)
+        .set('sortOrder', sortOrder)
+        .set('pageNumber', pageNumber.toString())
+        .set('pageSize', pageSize.toString())
+      });
+    }
+
     getVehiculo(id: number): Observable<Camion>{
       return this.hhtp.get<Camion>(`${this.myAppUrl}${this.myApiUrl}${id}`);
     }

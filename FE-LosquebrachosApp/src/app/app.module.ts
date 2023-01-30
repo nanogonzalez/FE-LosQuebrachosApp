@@ -3,14 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AgregarEditarTransporteComponent } from './components/agregar-editar-transporte/agregar-editar-transporte.component';
-import { VerTransporteComponent } from './components/ver-transporte/ver-transporte.component';
 import { ListadoTransporteComponent } from './components/listado-transporte/listado-transporte.component';
 import { AgregarEditarChoferComponent } from './components/agregar-editar-chofer/agregar-editar-chofer.component';
-import { VerChoferComponent } from './components/ver-chofer/ver-chofer.component';
 import { ListadoChoferComponent } from './components/listado-chofer/listado-chofer.component';
 import { SharedModule } from './shared/shared.module';
 import { ListadoCamionComponent } from './components/listado-camion/listado-camion.component';
-import { VerCamionComponent } from './components/ver-camion/ver-camion.component';
 import { AgregarEditarCamionComponent } from './components/agregar-editar-camion/agregar-editar-camion.component';
 import { MatConfirmBoxComponent } from './mat-confirm-box/mat-confirm-box.component';
 import { ListadoOrdenDeCargaComponent } from './components/listado-orden-de-carga/listado-orden-de-carga.component';
@@ -26,13 +23,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AgregarEditarClienteComponent } from './components/agregar-editar-cliente/agregar-editar-cliente.component';
 import { ListadoClienteComponent } from './components/listado-cliente/listado-cliente.component';
-import { PlaceAutocompleteComponent } from './components/place-autocomplete/place-autocomplete.component';
-import { PlaceCardComponent } from './components/place-card/place-card.component';
-import { MapDisplayComponent } from './components/map-display/map-display.component';
-import { OrdenDeCargaComponent } from './components/orden-de-carga/orden-de-carga.component';
 import { AgregarOrdenDeGasoilComponent } from './components/agregar-orden-de-gasoil/agregar-orden-de-gasoil.component';
 import { ListadoOrdenDeGasoilComponent } from './components/listado-orden-de-gasoil/listado-orden-de-gasoil.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
+import { VerOrdenDeGasoilComponent } from './components/ver-orden-de-gasoil/ver-orden-de-gasoil.component';
+import { AgregarEditarDestinoDeCargaComponent } from './components/agregar-editar-destino-de-carga/agregar-editar-destino-de-carga.component';
+import { ListadoDestinoDeCargaComponent } from './components/listado-destino-de-carga/listado-destino-de-carga.component';
+import { ListadoDestinoDeDescargaComponent } from './components/listado-destino-de-descarga/listado-destino-de-descarga.component';
+import { AgregarEditarDestinoDeDescargaComponent } from './components/agregar-editar-destino-de-descarga/agregar-editar-destino-de-descarga.component';
 
 
 
@@ -40,13 +38,10 @@ import { MainMenuComponent } from './components/main-menu/main-menu.component';
   declarations: [
     AppComponent,
     AgregarEditarTransporteComponent,
-    VerTransporteComponent,
     ListadoTransporteComponent,
     AgregarEditarChoferComponent,
-    VerChoferComponent,
     ListadoChoferComponent,
     ListadoCamionComponent,
-    VerCamionComponent,
     AgregarEditarCamionComponent,
     MatConfirmBoxComponent,
     ListadoOrdenDeCargaComponent,
@@ -54,13 +49,14 @@ import { MainMenuComponent } from './components/main-menu/main-menu.component';
     LoginComponent,
     AgregarEditarClienteComponent,
     ListadoClienteComponent,
-    PlaceAutocompleteComponent,
-    PlaceCardComponent,
-    MapDisplayComponent,
-    OrdenDeCargaComponent,
     AgregarOrdenDeGasoilComponent,
     ListadoOrdenDeGasoilComponent,
-    MainMenuComponent
+    MainMenuComponent,
+    VerOrdenDeGasoilComponent,
+    AgregarEditarDestinoDeCargaComponent,
+    ListadoDestinoDeCargaComponent,
+    ListadoDestinoDeDescargaComponent,
+    AgregarEditarDestinoDeDescargaComponent
   
   ],
   imports: [

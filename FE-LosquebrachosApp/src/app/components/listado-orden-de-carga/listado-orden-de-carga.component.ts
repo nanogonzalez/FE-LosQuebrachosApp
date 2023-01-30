@@ -2,11 +2,8 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { OrdenDeCarga } from 'src/app/interfaces/orden-de-carga';
 import { ConfirmBoxService } from 'src/app/services/confirm-box.service';
 import { OrdenDeCargaService } from 'src/app/services/orden-de-carga.service';
-import { GeocoderAutocomplete } from '@geoapify/geocoder-autocomplete';
 import { OrdenDeCargaDataSource } from 'src/app/data-sources/ordenDeCargaDataSource';
 import { debounceTime, distinctUntilChanged, fromEvent, tap, merge } from 'rxjs';
 
@@ -21,7 +18,7 @@ export class ListadoOrdenDeCargaComponent implements OnInit, AfterViewInit{
 
 
 
-  displayedColumns: string[] = ['destinoCarga', 'destinoDescarga', 'diaHoraCarga', 'tipoMercaderia', 'acciones'];
+  displayedColumns: string[] = ['numeroOrden', 'cliente', 'destinoDeCarga', 'destinoDeDescarga','distanciaViaje', 'diaHoraCarga', 'tipoMercaderia', 'acciones'];
   dataSource: OrdenDeCargaDataSource;
 
 
@@ -34,22 +31,19 @@ export class ListadoOrdenDeCargaComponent implements OnInit, AfterViewInit{
 
   
   ngOnInit(): void {
-   /* this.obtenerOrdenDeCarga();*/
    this.dataSource = new OrdenDeCargaDataSource(this._ordenDeCargaService);
    this.dataSource.loadOrdenDeCarga('', 'asc', 1, 10);
   }
 
 
   ngAfterViewInit() {
-    /*this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;*/
     this.paginator._intl.itemsPerPageLabel= "Items por página";
     fromEvent(this.input.nativeElement,'keyup')
             .pipe(
                 debounceTime(150),
                 distinctUntilChanged(),
                 tap(() => {
-                    this.paginator.pageIndex = 1;
+                    this.paginator.pageIndex = 0;
                     this.loadOrdenDeCargaPage();
                 })
             )
@@ -73,20 +67,6 @@ export class ListadoOrdenDeCargaComponent implements OnInit, AfterViewInit{
       this.paginator.pageSize
     );
   }
-  /*applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-
-
-  obtenerOrdenDeCarga(){
-    this._ordenDeCargaService.getOrdenesDeCargas().subscribe({
-      next: data =>{
-         this.dataSource.data = data.data;
-      }
-    })
-  }*/
 
   eliminarOrdenDeCarga(id: number){
   
@@ -96,14 +76,13 @@ export class ListadoOrdenDeCargaComponent implements OnInit, AfterViewInit{
         this._ordenDeCargaService.deleteOrdenDeCarga(id).subscribe(()=>{
           this.mensajeExito();
           this.loadOrdenDeCargaPage();
-          /*this.obtenerOrdenDeCarga();*/
           })
       }
      })
   }
 
   mensajeExito(){
-    this._snackBar.open('La Orden de Carga fue eliminada con éxito!', '' ,{
+    this._snackBar.open('EL Pedido de Carga fue eliminado con éxito!', '' ,{
       duration: 2000,
       horizontalPosition: 'left'
    });

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable, startWith } from 'rxjs';
+import { debounceTime, distinctUntilChanged, fromEvent, map, Observable, startWith, tap } from 'rxjs';
 import { Camion } from 'src/app/interfaces/camion';
 import { Transporte } from 'src/app/interfaces/transporte';
 import { CamionService } from 'src/app/services/camion.service';
@@ -25,11 +25,13 @@ interface Tipo {
 export class AgregarEditarCamionComponent implements OnInit{
 
   transportes: Transporte[] = [];
-  filteredTransportes: Observable<Transporte[]>;
+  selectedTransporte: any = "";
 
   form: FormGroup;
   id: number;
 
+  @ViewChild('input') input: ElementRef;
+  
   operacion: string = 'Agregar';
 
   capacidades: Capacidad[] = [
@@ -59,43 +61,53 @@ export class AgregarEditarCamionComponent implements OnInit{
 
    }
 
+   onSelected(){
+    this.selectedTransporte = this.selectedTransporte;
+  }
+
+  clearSelection(){
+    this.selectedTransporte = "";
+    this.transportes = [];
+  }
+
+
   ngOnInit(): void {
 
-    this.obtenerTransporte();
 
    if (this.id != 0){
       this.operacion = 'Editar';
       this.obtenerVehiculo(this.id);
     }
 
-    this.filteredTransportes = this.form.get("transporte").valueChanges.pipe(
-      startWith(''),
-      map(value => {
-        const transporte = typeof value === 'string' ? value : value?.apellido;
-        return transporte ? this._filterTransporte(transporte as string) : this.transportes.slice();
-      }),
-    ); 
   }
+
+  ngAfterViewInit(){
+  
+    fromEvent(this.input.nativeElement,'keyup')
+            .pipe(
+                debounceTime(150),
+                distinctUntilChanged(),
+                tap(() => {
+                  
+                    this.loadTransportes(this.input.nativeElement.value);
+                })
+            )
+            .subscribe();
+
+  }
+
+  loadTransportes(query = ''){
+    this._transporteService.getTransportes(query).subscribe({
+     next: response =>{
+        this.transportes = response.data;
+     }
+    })
+ }
 
   displayTransporte(transporte: Transporte): string {
     return transporte && transporte.nombre + " " + transporte.apellido ? transporte.nombre + " " + transporte.apellido: '';
   }
-
-  private _filterTransporte(apellido: string): Transporte[] {
-    const filterValue = apellido.toLowerCase();
-
-    return this.transportes.filter(transporte => transporte.apellido.toLowerCase().includes(filterValue));
-  }
-
   
-  obtenerTransporte(){
-    this._transporteService.getTransportes().subscribe({
-      next: response =>{
-         this.transportes = response.data;
-      }
-    })
-  }
-
   obtenerVehiculo(id: number){
      this._vehiculoService.getVehiculo(id).subscribe({
       next: data=>{

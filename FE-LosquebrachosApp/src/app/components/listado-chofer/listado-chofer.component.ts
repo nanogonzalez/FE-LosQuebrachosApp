@@ -27,21 +27,18 @@ export class ListadoChoferComponent implements OnInit, AfterViewInit {
   constructor(private _snackBar: MatSnackBar, private _choferService: ChoferService, private _dialogService: ConfirmBoxService) { }
 
   ngOnInit(): void {
-   /* this.obtenerChofer();*/
    this.dataSource = new ChoferDataSource(this._choferService);
    this.dataSource.loadChoferes('', 'asc', 1, 10);
   }
 
   ngAfterViewInit() {
-   /* this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;*/
     this.paginator._intl.itemsPerPageLabel= "Items por página";
     fromEvent(this.input.nativeElement,'keyup')
             .pipe(
                 debounceTime(150),
                 distinctUntilChanged(),
                 tap(() => {
-                    this.paginator.pageIndex = 1;
+                    this.paginator.pageIndex = 0;
                     this.loadChoferPage();
                 })
             )
@@ -66,19 +63,6 @@ export class ListadoChoferComponent implements OnInit, AfterViewInit {
     );
   }
 
- /* applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  obtenerChofer(){
-    this._choferService.getChoferes().subscribe({
-      next: data=>{
-        this.dataSource.data = data.data;
-      }
-    })
-  } */
-
   eliminarChofer(id: number){
     
     this._dialogService.openConfirmDialog('Chofer')
@@ -88,7 +72,6 @@ export class ListadoChoferComponent implements OnInit, AfterViewInit {
         this._choferService.deleteChofer(id).subscribe(()=>{    
           this.mensajeExito();
           this.loadChoferPage();
-         /* this.obtenerChofer();*/
         })
       }
      })

@@ -14,7 +14,7 @@ import { OrdenDeGasoilService } from 'src/app/services/orden-de-gasoil.service';
 })
 export class ListadoOrdenDeGasoilComponent implements OnInit {
 
-  displayedColumns: string[] = ['numeroOrden', 'fecha', 'chofer', 'chasis', 'transporte', 'cuitTransporte', 'litros', 'estacion', 'acciones' ];
+  displayedColumns: string[] = ['numeroOrden', 'fecha', 'transporte', 'cuitTransporte','chofer', 'vehiculo', 'litros', 'estacion', 'acciones' ];
   dataSource: OrdenDeGasoilDataSource;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -42,7 +42,7 @@ export class ListadoOrdenDeGasoilComponent implements OnInit {
             )
             .subscribe();
 
-    this.sort.sortChange.subscribe(()=> this.paginator.pageIndex = 0);
+    this.sort.sortChange.subscribe(()=> this.paginator.pageIndex = 1);
 
     merge(this.sort.sortChange, this.paginator.page)
     .pipe(

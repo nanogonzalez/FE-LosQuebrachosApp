@@ -40,4 +40,8 @@ import { PagedResponse } from '../interfaces/pagedResponse';
     updateOrdenDeGasoil(id: number, ordenDeGasoil: OrdenDeGasoil): Observable<OrdenDeGasoil>{
       return this.hhtp.put<OrdenDeGasoil>(`${this.myAppUrl}${this.myApiUrl}${id}`, ordenDeGasoil);
     }
+
+    getLastOrderNumber(): Observable<string> {
+      return this.hhtp.get<string>(`${this.myAppUrl}${this.myApiUrl}lastOrderNumber`);
+  }
   }

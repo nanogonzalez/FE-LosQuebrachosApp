@@ -46,9 +46,12 @@
                 <mat-grid-tile>
                     <mat-form-field appearance="outline">
                         <mat-label for="dataList">Adjudicar Transporte</mat-label>
-                        <input type="text" matInput [matAutocomplete]="auto" formControlName="transporte" placeholder="Buscar por apellido">
-                        <mat-autocomplete [panelWidth]="200" #auto="matAutocomplete" [displayWith]="displayTransporte">
-                        <mat-option *ngFor="let transporte of filteredTransportes | async" [value]="transporte">
+                        <input #input autocomplete="off" matInput [matAutocomplete]="auto" formControlName="transporte" placeholder="Buscar por apellido" [(ngModel)]="selectedTransporte">
+                        <button *ngIf="selectedTransporte" matSuffix mat-icon-button aria-label="Clear" (click)="clearSelection()">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-autocomplete [panelWidth]="200" #auto="matAutocomplete" [displayWith]="displayTransporte" (optionSelected)="onSelected()">
+                        <mat-option *ngFor="let transporte of transportes" [value]="transporte">
                         <span>{{transporte.nombre}} {{transporte.apellido}}</span>
                         </mat-option>
                         </mat-autocomplete>

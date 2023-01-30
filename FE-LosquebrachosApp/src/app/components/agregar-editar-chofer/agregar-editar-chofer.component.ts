@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Chofer } from 'src/app/interfaces/chofer';
-import { Transporte } from 'src/app/interfaces/transporte';
 import { ChoferService } from 'src/app/services/chofer.service';
 import { TransporteService } from 'src/app/services/transporte.service';
-import { Observable, startWith, map } from 'rxjs';
+import { fromEvent, debounceTime, distinctUntilChanged, tap, finalize } from 'rxjs';
+import { Transporte } from 'src/app/interfaces/transporte';
 
 
 
@@ -18,15 +18,15 @@ import { Observable, startWith, map } from 'rxjs';
 export class AgregarEditarChoferComponent implements OnInit {
 
   transportes: Transporte[] = [];
+  selectedTransporte: any = "";
 
-  filteredTransportes: Observable<Transporte[]>;
-  
+  @ViewChild('input') input: ElementRef;
 
   form: FormGroup;
   id: number;
   operacion: string = 'Agregar';
   
-  constructor(private fb: FormBuilder, private _choferService: ChoferService, private _snackBar: MatSnackBar, private router: Router, private aRoute: ActivatedRoute, private _transporteService: TransporteService) { 
+  constructor(private fb: FormBuilder, private _choferService: ChoferService, private _snackBar: MatSnackBar, private router: Router, private aRoute: ActivatedRoute, private _transporteService: TransporteService,) { 
 
     this.form = this.fb.group({
       nombre: ['', Validators.required],
@@ -34,42 +34,54 @@ export class AgregarEditarChoferComponent implements OnInit {
       cuit: ['', Validators.required],
       transporte: ['', Validators.required]
     })
-
     
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
   }
 
+  onSelected(){
+    this.selectedTransporte = this.selectedTransporte;
+  }
 
+  clearSelection(){
+    this.selectedTransporte = "";
+    this.transportes = [];
+  }
 
   ngOnInit(): void {
    
-    this.obtenerTransporte();
 
     if (this.id != 0){
       this.operacion = 'Editar';
       this.obtenerChofer(this.id);
     }
  
-    this.filteredTransportes = this.form.get("transporte").valueChanges.pipe(
-      startWith(''),
-      map(value => {
-        const apellido = typeof value === 'string' ? value : value?.apellido;
-        return apellido ? this._filter(apellido as string) : this.transportes.slice();
-      }),
-    ); 
+  }
+
+  ngAfterViewInit(){
+  
+    fromEvent(this.input.nativeElement,'keyup')
+            .pipe(
+                debounceTime(150),
+                distinctUntilChanged(),
+                tap(() => {
+                    this.loadTransportes(this.input.nativeElement.value);
+                })
+            )
+            .subscribe();
 
   }
 
-  displayFn(transporte: Transporte): string {
+  loadTransportes(query = ''){
+     this._transporteService.getTransportes(query).subscribe({
+      next: response =>{
+         this.transportes = response.data;
+      }
+     })
+  }
+
+  displayTransporte(transporte: Transporte): string {
     return transporte && transporte.nombre + " " + transporte.apellido ? transporte.nombre + " " + transporte.apellido: '';
   }
-
-  private _filter(apellido: string): Transporte[] {
-    const filterValue = apellido.toLowerCase();
-
-    return this.transportes.filter(transporte => transporte.apellido.toLowerCase().includes(filterValue));
-  }
-
 
   obtenerChofer(id: number){
      this._choferService.getChofer(id).subscribe({
@@ -79,7 +91,7 @@ export class AgregarEditarChoferComponent implements OnInit {
           apellido: data.apellido,
           cuit: data.cuit,
           transporte: data.transporte
-        })
+        })  
       }
      })
   }
@@ -125,11 +137,4 @@ export class AgregarEditarChoferComponent implements OnInit {
    });
   }
 
-  obtenerTransporte(){
-    this._transporteService.getTransportes().subscribe({
-      next: response =>{
-         this.transportes = response.data;
-      }
-    })
-  }
 }

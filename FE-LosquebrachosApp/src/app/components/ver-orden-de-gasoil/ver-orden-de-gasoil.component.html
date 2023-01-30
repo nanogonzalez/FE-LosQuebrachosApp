@@ -1,0 +1,37 @@
+<div *ngIf="ordenDeGasoil != null" class="container" >
+    <mat-card class="card mat-elevation-z8" id="ordenPdf" #ordenPdf>
+        <div class="domicilio">
+        <h2>Los Quebrachos S.R.L.</h2>
+        <p>Domicilio: Libertad 561 - 3730 - Charata, Chaco - CUIT: 30717216071</p>
+        <p>Tel: 03731-420924</p>
+       </div>
+       
+       <mat-card-content>
+
+        <div class="content">
+            <p><strong>Orden De Carga de Gasoil:</strong> {{ordenDeGasoil.numeroOrden}}</p>
+            <p><strong>Fecha:</strong> {{ordenDeGasoil.fecha | date:'MM/dd/yy'}}</p>
+            <p><strong>Autorizo a:</strong> {{ordenDeGasoil.chofer.nombre}} {{ordenDeGasoil.chofer.apellido}}</p>
+            <p><strong>Patente:</strong> {{ordenDeGasoil.vehiculo.chasis}}</p>
+            <p><strong>Fletero:</strong> {{ordenDeGasoil.transporte.nombre}} {{ordenDeGasoil.transporte.apellido}}</p>
+            <p><strong>Cuit:</strong> {{ordenDeGasoil.transporte.cuit}}</p>
+            <p><strong>A Cargar:</strong> {{ordenDeGasoil.litros}} Litros de Gasoil.</p>
+            <p><strong>Estación:</strong> {{ordenDeGasoil.estacion}}</p>
+        </div>
+        
+        <div class="observaciones">
+            <p>Observaciones:</p>
+        </div>
+        
+        <div class="firma">
+            <p>Firma:.................................</p>
+            <p>Aclaración:.........................</p>
+            <p>DNI:.....................................</p>
+        </div>
+        
+       </mat-card-content>
+    </mat-card>
+    <div class="btn-pdf">
+        <button  mat-raised-button class="mat-elevation-z4">Crear PDF</button>
+    </div>
+</div>
