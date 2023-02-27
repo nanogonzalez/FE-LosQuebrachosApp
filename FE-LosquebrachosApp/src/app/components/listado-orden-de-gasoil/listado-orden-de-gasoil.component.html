@@ -57,7 +57,7 @@
                 <button class="agregar" routerLink='/agregarOrdenGasoil' matTooltip="Agregar Orden de Gasoil" mat-raised-button color="primary">Agregar</button> 
             </th>
             <td mat-cell *matCellDef="let element"> 
-                <mat-icon routerLink="/verOrdenGasoil/{{element.id}}" matTooltip="Crear PDF" class="edit" fontIcon="insert_drive_file"></mat-icon> 
+                <mat-icon (click)="generatePdf(element)" matTooltip="Crear PDF" class="edit" fontIcon="insert_drive_file"></mat-icon> 
                 <mat-icon routerLink="/editarOrdenGasoil/{{element.id}}" matTooltip="Editar" class="edit" fontIcon="edit"></mat-icon>    
                 <mat-icon (click)="eliminarOrdenDeGasoil(element.id)"  matTooltip="Eliminar" class="delete" fontIcon="delete"></mat-icon>     
             </td>

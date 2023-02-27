@@ -1,0 +1,62 @@
+
+<div class="container">
+
+    <mat-card class="card mat-elevation-z8">
+
+        <mat-card-subtitle>
+           <h1>Crea tu cuenta</h1>
+        </mat-card-subtitle>
+
+        <form [formGroup]="form">
+            <mat-grid-list cols="1" rowHeight="80px">
+                <mat-grid-tile>
+                    <mat-icon class="icon-user">person</mat-icon>
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label>Nombre:</mat-label>
+                        <input formControlName="nombre" matInput autocomplete="off">
+                    </mat-form-field>
+                    <mat-icon class="icon-lock2">lock</mat-icon>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-icon class="icon-user">person</mat-icon>
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label>Apellido:</mat-label>
+                        <input formControlName="apellido" matInput autocomplete="off">
+                    </mat-form-field>
+                    <mat-icon class="icon-lock2">lock</mat-icon>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-icon class="icon-user">person</mat-icon>
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label>Nombre Usuario:</mat-label>
+                        <input formControlName="nombreUsuario" matInput autocomplete="off">
+                    </mat-form-field>
+                    <mat-icon class="icon-lock2">lock</mat-icon>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-icon class="icon-user">mail</mat-icon>
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label>Email:</mat-label>
+                        <input formControlName="email" matInput autocomplete="off">
+                    </mat-form-field>
+                    <mat-icon class="icon-lock2">lock</mat-icon>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-icon class="icon-lock">lock</mat-icon>
+                    <mat-form-field class="form-field-pass" appearance="outline">
+                        <mat-label>Contraseña:</mat-label>
+                        <input [type]="type" formControlName="password" matInput autocomplete="off">
+                    </mat-form-field>
+                    <mat-icon (click)="hideShowPass()" class="icon-visibility">{{eyeIcon}}</mat-icon>
+                </mat-grid-tile>    
+              </mat-grid-list>
+              <div class="submit">
+                <div class="btn">
+                    <button (click)="onSingup()" [disabled]="form.invalid"  type="submit" mat-raised-button>Registrarse</button>
+                </div>
+                <h4>Tienes una cuenta? <a id="forget" href="" routerLink="/login">Iniciar sesión</a></h4>
+            </div>
+        </form>
+    </mat-card>
+</div>
+

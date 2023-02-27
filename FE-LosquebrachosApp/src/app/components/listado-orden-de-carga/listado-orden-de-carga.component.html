@@ -54,7 +54,8 @@
                 <button class="agregar" routerLink="/agregarOrdenDeCarga" matTooltip="Agregar Orden De Carga" mat-raised-button color="primary">Agregar</button> 
             </th>
             <td mat-cell *matCellDef="let element"> 
-                <mat-icon routerLink="/editarOrdenDeCarga/{{element.id}}" matTooltip="Editar" class="edit" fontIcon="edit"></mat-icon>    
+                <mat-icon (click)="generatePdf(element)" matTooltip="Crear PDF" class="edit" fontIcon="insert_drive_file"></mat-icon> 
+                <mat-icon routerLink="/editarOrdenDeCarga/{{element.id}}" matTooltip="Editar" class="edit" fontIcon="edit"></mat-icon>
                 <mat-icon (click)="eliminarOrdenDeCarga(element.id)"  matTooltip="Eliminar" class="delete" fontIcon="delete"></mat-icon>     
             </td>
           </ng-container>

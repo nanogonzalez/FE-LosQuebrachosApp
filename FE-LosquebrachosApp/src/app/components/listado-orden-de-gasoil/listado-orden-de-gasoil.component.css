@@ -1,11 +1,15 @@
 table{
   width: 100%;
+ 
 }
 
 .container{
   margin: 0 5%;
 }
-td, th{
+td{
+  width: 5%;
+}
+th{
   width: 5%;
 }
 mat-paginator{

@@ -1,14 +1,12 @@
 <mat-toolbar >
     <mat-toolbar-row>
         <button mat-button (click)="opened=!opened"><mat-icon>menu</mat-icon></button>
+       <h2>Dador de carga: {{nombreUsuario}}</h2>
         <img src="assets/images/logo.jpg">
-        <ul *ngIf="auth.user$ | async as user">
-            <li>{{ user.name }}</li>
-          </ul>
-        <button (click)="logOut()" mat-raised-button color="primary">Cerrar Sesión</button>
+        <button (click)="cerrarSesion()" mat-raised-button color="primary">Cerrar Sesión</button>
     </mat-toolbar-row>
 </mat-toolbar>
-<mat-sidenav-container>
+<mat-sidenav-container *ngIf="role === 'Admin'">
     <mat-sidenav [(opened)]="opened" mode="side" >
        <mat-list>
         <mat-list-item>
@@ -38,8 +36,11 @@
     </mat-list>
     </mat-sidenav>
     <mat-sidenav-content> 
+            <div *ngIf="mostrarImagen" class="content-img">
+                <img src="assets/images/IMG_8665.jpg">
+            </div>
             <div class="componente">
-               <router-outlet></router-outlet>
+               <router-outlet (activate)="mostrarImagen = false"></router-outlet>
             </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

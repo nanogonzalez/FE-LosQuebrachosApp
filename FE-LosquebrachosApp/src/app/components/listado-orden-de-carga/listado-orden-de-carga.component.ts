@@ -6,7 +6,11 @@ import { ConfirmBoxService } from 'src/app/services/confirm-box.service';
 import { OrdenDeCargaService } from 'src/app/services/orden-de-carga.service';
 import { OrdenDeCargaDataSource } from 'src/app/data-sources/ordenDeCargaDataSource';
 import { debounceTime, distinctUntilChanged, fromEvent, tap, merge } from 'rxjs';
-
+import { OrdenDeCarga } from 'src/app/interfaces/orden-de-carga';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import * as moment from 'moment';
 
 
 @Component({
@@ -25,8 +29,7 @@ export class ListadoOrdenDeCargaComponent implements OnInit, AfterViewInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('input') input: ElementRef;
-
-  
+ 
   constructor(private _snackBar: MatSnackBar, private _ordenDeCargaService: OrdenDeCargaService, private _dialogService: ConfirmBoxService) { }
 
   
@@ -56,6 +59,25 @@ export class ListadoOrdenDeCargaComponent implements OnInit, AfterViewInit{
       tap(() => this.loadOrdenDeCargaPage())
     )
     .subscribe();
+  }
+ 
+  generatePdf(ordenDeCarga: OrdenDeCarga){
+
+      var documentDefinition = {
+        content: [
+            {text: 'Los Quebrachos S.R.L.', style: 'header'},
+            {text: 'Domicilio: Libertad 561 - 3730 - Charata, Chaco - CUIT: 30717216071', style: 'header'},
+            {text: 'Tel: 03731-420924\n\n\n\n'},
+            {text: `Orden De Carga: ${ordenDeCarga.numeroOrden}\n\n`},
+            {text: `Cliente: ${ordenDeCarga.cliente.razonSocial}\n\n`},
+            {text: `Destino De Carga: ${ordenDeCarga.destinoDeCarga.nombreEstablecimiento}\n\n`},
+            {text: `Destino De Descarga: ${ordenDeCarga.destinoDeDescarga.nombreEstablecimiento}\n\n`},
+            {text: `Distancia: ${ordenDeCarga.distanciaViaje} Kms\n\n`},
+            {text: `Dia y Hora de Carga: ${moment(ordenDeCarga.diaHoraCarga).format('DD/MM/YYYY, HH:mm')} Hs\n\n`},
+            {text: `Tipo de Mercadería: ${ordenDeCarga.tipoMercaderia}`}
+        ]       
+      };
+      pdfMake.createPdf(documentDefinition).open();
   }
 
   loadOrdenDeCargaPage(){

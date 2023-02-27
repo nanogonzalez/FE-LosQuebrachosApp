@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserStoreService } from 'src/app/services/user-store.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -8,6 +10,7 @@ import { AuthService } from '@auth0/auth0-angular';
 })
 export class MainMenuComponent implements OnInit {
 
+  mostrarImagen = true;
   opened = true;
 
    links = [
@@ -21,15 +24,31 @@ export class MainMenuComponent implements OnInit {
     {nombre: "Puntos De Descarga"},
   ]
 
-  constructor(public auth: AuthService) {
+  public nombreUsuario: string = "";
+  public role: string = "";
+
+  constructor(private _authService: AuthService, private _usersService: UsersService, private _userStoreService: UserStoreService) {
 
    }
 
- 
-  logOut() {
-    this.auth.logout()
-  }
    ngOnInit(): void {
-     
+     this._userStoreService.getNombreUsuarioFromStore().subscribe(
+      val =>{
+        const nombreUsuarioFromToken = this._authService.getNombreUsuarioFromToken();
+        this.nombreUsuario = val || nombreUsuarioFromToken;
+      }
+     );
+
+     this._userStoreService.getRoleFromStore().subscribe(
+      val =>{
+        const roleFromtoken = this._authService.getRoleFromToken();
+        this.role = val || roleFromtoken;
+      }
+     )
    }
+
+   cerrarSesion(){
+      this._authService.logout();
+   }
+
 }

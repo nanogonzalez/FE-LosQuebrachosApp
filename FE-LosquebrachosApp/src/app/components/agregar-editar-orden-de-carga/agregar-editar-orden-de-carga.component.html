@@ -31,7 +31,7 @@
                         <mat-label>Destino de Carga:</mat-label>
                         <input #inputDestinoDeCarga autocomplete="off" matInput [matAutocomplete]="autoDestinoDeCarga"
                          formControlName="destinoDeCarga" placeholder="Buscar">
-                        <mat-autocomplete (optionSelected)="selectedDestinoDeCarga($event)"  [panelWidth]="300" #autoDestinoDeCarga="matAutocomplete" [displayWith]="displayDestinoDeCarga">
+                        <mat-autocomplete (optionSelected)="updateMarkerCarga($event)" [panelWidth]="300" #autoDestinoDeCarga="matAutocomplete" [displayWith]="displayDestinoDeCarga">
                         <mat-option *ngFor="let destinoDeCarga of destinosDeCargas" [value]="destinoDeCarga">
                         <span>{{destinoDeCarga.nombreEstablecimiento}}</span>
                         </mat-option>
@@ -43,7 +43,7 @@
                         <mat-label>Destino de Descarga:</mat-label>
                         <input #inputDestinoDeDescarga autocomplete="off" matInput [matAutocomplete]="autoDestinoDeDescarga"
                          formControlName="destinoDeDescarga" placeholder="Buscar">
-                        <mat-autocomplete [panelWidth]="300" #autoDestinoDeDescarga="matAutocomplete" [displayWith]="displayDestinoDeDescarga">
+                        <mat-autocomplete (optionSelected)="updateMarkerDescarga($event)" [panelWidth]="300" #autoDestinoDeDescarga="matAutocomplete" [displayWith]="displayDestinoDeDescarga">
                         <mat-option *ngFor="let destinoDeDescarga of destinosDeDescargas" [value]="destinoDeDescarga">
                         <span>{{destinoDeDescarga.nombreEstablecimiento}}</span>
                         </mat-option>
@@ -52,8 +52,8 @@
                 </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-form-field appearance="outline">
-                            <mat-label>Distancia:</mat-label>
-                            <input type="number" matInput formControlName="distanciaViaje" autocomplete="off"/>
+                            <mat-label>Distancia(Kms):</mat-label>
+                            <input matInput formControlName="distanciaViaje" autocomplete="off"/>
                         </mat-form-field>
                     </mat-grid-tile>
                 <mat-grid-tile>

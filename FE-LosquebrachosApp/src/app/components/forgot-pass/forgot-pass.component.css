@@ -1,5 +1,4 @@
-
-.container, .modal{
+.modal{
     margin-left: auto;
     margin-right: auto;
     width: 35%;
@@ -56,7 +55,7 @@ h3{
 }
 
 .submit{
-    margin-top: 30px;
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -75,4 +74,20 @@ button{
 button:hover{
     transform: translateY(1.5px);
     transition:.3 ease-in-out;
+}
+.send{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.close{
+    background-color: maroon;
+}
+.validation{
+    color: red;
+    font-weight: bold;
+}
+.warning{
+    transform: translateY(-15px);
 }

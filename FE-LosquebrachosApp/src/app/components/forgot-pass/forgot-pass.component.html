@@ -1,0 +1,30 @@
+<div class="modal">
+
+    <mat-card class="card mat-elevation-z8">
+
+        <div class="logo">
+            <img src="assets/images/IMG_8665.jpg">
+        </div>
+        <h2>Olvidaste tu Contraseña?</h2> 
+        <h3>Ingresa tu Email y te enviaremos un reset link</h3>
+            <mat-grid-list cols="1" rowHeight="80px">
+                <mat-grid-tile>
+                    <mat-icon class="icon-user">mail</mat-icon>
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label>Email:</mat-label>
+                        <input [(ngModel)]="resetEmailPassword" (ngModelChange)="checkValidEmail($event)" matInput autocomplete="off">
+                    </mat-form-field>   
+                </mat-grid-tile>
+              </mat-grid-list>
+              <div class="warning">
+                <small *ngIf="!resetEmailPassword" class="validation">*Ingresa tu Email*</small>
+                <small *ngIf="!isValidEmail && resetEmailPassword" class="validation">*Email no válido*</small>
+              </div>
+              <div class="submit">
+                <div class="send">
+                    <button class="close" routerLink="/login" type="submit" mat-raised-button>Volver</button>
+                    <button (click)="confirmToSend()" type="submit" mat-raised-button>Enviar</button>
+                </div>
+            </div>
+    </mat-card>
+</div>

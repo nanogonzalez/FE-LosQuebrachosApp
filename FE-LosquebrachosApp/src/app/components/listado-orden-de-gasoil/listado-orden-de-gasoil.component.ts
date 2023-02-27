@@ -4,8 +4,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { debounceTime, distinctUntilChanged, fromEvent, tap, merge } from 'rxjs';
 import { OrdenDeGasoilDataSource } from 'src/app/data-sources/ordenDeGasoilDataSource';
+import { OrdenDeGasoil } from 'src/app/interfaces/orden-de-gasoil';
 import { ConfirmBoxService } from 'src/app/services/confirm-box.service';
 import { OrdenDeGasoilService } from 'src/app/services/orden-de-gasoil.service';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-listado-orden-de-gasoil',
@@ -80,4 +85,28 @@ export class ListadoOrdenDeGasoilComponent implements OnInit {
       horizontalPosition: 'left'
    });
   }
+
+  generatePdf(ordenDeGasoil: OrdenDeGasoil){
+    var documentDefinition = {
+      content: [
+        {text: 'Los Quebrachos S.R.L.', style: 'header'},
+            {text: 'Domicilio: Libertad 561 - 3730 - Charata, Chaco - CUIT: 30717216071', style: 'header'},
+            {text: 'Tel: 03731-420924\n\n\n\n'},
+            {text: `Orden De Gasoil: ${ordenDeGasoil.numeroOrden}\n\n`},
+            {text: `Fecha: ${moment(ordenDeGasoil.fecha).format('DD/MM/YYYY, HH:mm')} Hs\n\n`},
+            {text: `Autorizo a: ${ordenDeGasoil.chofer.nombre} ${ordenDeGasoil.chofer.apellido}\n\n`},
+            {text: `Patente: ${ordenDeGasoil.vehiculo.chasis}\n\n`},
+            {text: `Fletero: ${ordenDeGasoil.transporte.nombre} ${ordenDeGasoil.transporte.apellido}\n\n`},
+            {text: `Cuit: ${ordenDeGasoil.transporte.cuit}\n\n`},
+            {text: `A cargar: ${ordenDeGasoil.litros} litros de Gasoil\n\n`},
+            {text: `Estación: ${ordenDeGasoil.estacion}\n\n\n\n`},
+            {text: `Observaciones:\n\n\n\n`},
+            {text: `Firma:.............................\n\n\n`},
+            {text: `Aclaración:.....................\n\n\n`},
+            {text: `Dni:.................................`},
+      ]
+  };
+  pdfMake.createPdf(documentDefinition).open();
+}
+
 }

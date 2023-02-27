@@ -8,6 +8,7 @@ import { AgregarEditarDestinoDeDescargaComponent } from './components/agregar-ed
 import { AgregarEditarOrdenDeCargaComponent } from './components/agregar-editar-orden-de-carga/agregar-editar-orden-de-carga.component';
 import { AgregarEditarTransporteComponent } from './components/agregar-editar-transporte/agregar-editar-transporte.component';
 import { AgregarOrdenDeGasoilComponent } from './components/agregar-orden-de-gasoil/agregar-orden-de-gasoil.component';
+import { ForgotPassComponent } from './components/forgot-pass/forgot-pass.component';
 import { ListadoCamionComponent } from './components/listado-camion/listado-camion.component';
 import { ListadoChoferComponent } from './components/listado-chofer/listado-chofer.component';
 import { ListadoClienteComponent } from './components/listado-cliente/listado-cliente.component';
@@ -18,17 +19,22 @@ import { ListadoOrdenDeGasoilComponent } from './components/listado-orden-de-gas
 import { ListadoTransporteComponent } from './components/listado-transporte/listado-transporte.component';
 import { LoginComponent } from './components/login/login.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
-import { VerOrdenDeGasoilComponent } from './components/ver-orden-de-gasoil/ver-orden-de-gasoil.component';
-
-
+import { ResetComponent } from './components/reset/reset.component';
+import { SingupComponent } from './components/singup/singup.component';
+import { WelcomePageComponent } from './components/welcome-page/welcome-page.component';
+import { AuthGuard } from './guards/auth.guard';
 
 
 const routes: Routes = [
 
-{ path: '', redirectTo: 'login', pathMatch: 'full' },
+{ path: '', redirectTo: 'welcome', pathMatch: 'full' },
+{ path: 'welcome', component: WelcomePageComponent },
 { path: 'login', component: LoginComponent },
-{ path: 'mainMenu', component: MainMenuComponent },
-{ path: '', component: MainMenuComponent, 
+{ path: 'singup', component: SingupComponent },
+{ path: 'resetPassword', component: ForgotPassComponent },
+{ path: 'reset', component: ResetComponent },
+{ path: 'mainMenu', component: MainMenuComponent, canActivate:[AuthGuard] },
+{ path: '', component: MainMenuComponent,  
 children: [
     { path: 'agregarTransporte', component: AgregarEditarTransporteComponent },
     { path: 'editarTransporte/:id', component: AgregarEditarTransporteComponent },
@@ -48,7 +54,6 @@ children: [
     { path: 'listOrdenDeGasoil', component: ListadoOrdenDeGasoilComponent},
     { path: 'agregarOrdenGasoil', component: AgregarOrdenDeGasoilComponent },
     { path: 'editarOrdenGasoil/:id', component: AgregarOrdenDeGasoilComponent },
-    { path: 'verOrdenGasoil/:id', component: VerOrdenDeGasoilComponent },
     { path: 'agregarDestinoDeCarga', component: AgregarEditarDestinoDeCargaComponent },
     { path: 'editarDestinoDeCarga/:id', component: AgregarEditarDestinoDeCargaComponent },
     { path: 'listDestinoDeCarga', component: ListadoDestinoDeCargaComponent },
@@ -56,7 +61,7 @@ children: [
     { path: 'editarDestinoDeDescarga/:id', component: AgregarEditarDestinoDeDescargaComponent },
     { path: 'listDestinoDeDescarga', component: ListadoDestinoDeDescargaComponent }  
 ] },
-{ path: '**', redirectTo: 'login', pathMatch: 'full' }
+{ path: '**', redirectTo: 'welcome', pathMatch: 'full' }
 ];
 
 @NgModule({

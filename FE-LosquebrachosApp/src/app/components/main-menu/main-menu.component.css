@@ -22,7 +22,7 @@ mat-sidenav{
 mat-list{
     margin-top: 20px;
 }
-li{
+h2{
     color: white;
     list-style: none;
 }
@@ -35,4 +35,17 @@ li{
     text-decoration: none;
     color: white;
     cursor: pointer;
+}
+.content-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 70px;
+}
+.content-img img{
+    width: 50%;
+    border-radius: 10px;
+}
+h4{
+    color: white;
 }

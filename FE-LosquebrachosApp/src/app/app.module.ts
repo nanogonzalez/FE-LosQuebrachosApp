@@ -26,11 +26,17 @@ import { ListadoClienteComponent } from './components/listado-cliente/listado-cl
 import { AgregarOrdenDeGasoilComponent } from './components/agregar-orden-de-gasoil/agregar-orden-de-gasoil.component';
 import { ListadoOrdenDeGasoilComponent } from './components/listado-orden-de-gasoil/listado-orden-de-gasoil.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
-import { VerOrdenDeGasoilComponent } from './components/ver-orden-de-gasoil/ver-orden-de-gasoil.component';
 import { AgregarEditarDestinoDeCargaComponent } from './components/agregar-editar-destino-de-carga/agregar-editar-destino-de-carga.component';
 import { ListadoDestinoDeCargaComponent } from './components/listado-destino-de-carga/listado-destino-de-carga.component';
 import { ListadoDestinoDeDescargaComponent } from './components/listado-destino-de-descarga/listado-destino-de-descarga.component';
 import { AgregarEditarDestinoDeDescargaComponent } from './components/agregar-editar-destino-de-descarga/agregar-editar-destino-de-descarga.component';
+import { SingupComponent } from './components/singup/singup.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+import { ForgotPassComponent } from './components/forgot-pass/forgot-pass.component';
+import { ResetComponent } from './components/reset/reset.component';
+import { WelcomePageComponent } from './components/welcome-page/welcome-page.component';
+
 
 
 
@@ -52,11 +58,14 @@ import { AgregarEditarDestinoDeDescargaComponent } from './components/agregar-ed
     AgregarOrdenDeGasoilComponent,
     ListadoOrdenDeGasoilComponent,
     MainMenuComponent,
-    VerOrdenDeGasoilComponent,
     AgregarEditarDestinoDeCargaComponent,
     ListadoDestinoDeCargaComponent,
     ListadoDestinoDeDescargaComponent,
-    AgregarEditarDestinoDeDescargaComponent
+    AgregarEditarDestinoDeDescargaComponent,
+    SingupComponent,
+    ForgotPassComponent,
+    ResetComponent,
+    WelcomePageComponent
   
   ],
   imports: [
@@ -76,7 +85,11 @@ import { AgregarEditarDestinoDeDescargaComponent } from './components/agregar-ed
     LayoutModule
   ],
  
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent],
   entryComponents: [ListadoTransporteComponent, MatConfirmBoxComponent]
 })

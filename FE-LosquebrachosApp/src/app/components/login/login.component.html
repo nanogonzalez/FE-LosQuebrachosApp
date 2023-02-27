@@ -1,7 +1,40 @@
-<div class="login">
-    <button (click)="login()" mat-raised-button color="primary">Iniciar Sesión</button>
+
+<div class="container">
+
+    <mat-card class="card mat-elevation-z8">
+
+        <div class="logo">
+            <img src="assets/images/IMG_8665.jpg">
+        </div>
+
+        <form [formGroup]="form">
+            <mat-grid-list cols="1" rowHeight="80px">
+                <mat-grid-tile>
+                    <mat-icon class="icon-user">person</mat-icon>
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label>Nombre Usuario:</mat-label>
+                        <input formControlName="nombreUsuario" matInput autocomplete="off">
+                    </mat-form-field>
+                    <mat-icon class="icon-lock2">lock</mat-icon>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-icon class="icon-lock">lock</mat-icon>
+                    <mat-form-field class="form-field-pass" appearance="outline">
+                        <mat-label>Contraseña:</mat-label>
+                        <input [type]="type" formControlName="password" matInput autocomplete="off">
+                    </mat-form-field>
+                    <mat-icon (click)="hideShowPass()" class="icon-visibility">{{eyeIcon}}</mat-icon>
+                </mat-grid-tile>    
+              </mat-grid-list>
+              <div class="submit">
+                <a routerLink="/resetPassword" id="forget" href="">Olvidaste tu contraseña?</a>
+                <div class="btn">
+                    <button (click)="onLogin()" [disabled]="form.invalid" type="submit" mat-raised-button>Iniciar sesión</button>
+                </div>
+                <h4>No estás registrado? <a id="forget" href="" routerLink="/singup">Crea una nueva cuenta</a></h4>
+            </div>
+        </form>
+    </mat-card>
 </div>
 
-<div class="logo">
-    <img src="assets/images/logo.jpg">
-</div>
+

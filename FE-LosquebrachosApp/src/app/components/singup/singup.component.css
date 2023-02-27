@@ -1,21 +1,12 @@
 
-.container, .modal{
+.container{
     margin-left: auto;
     margin-right: auto;
     width: 35%;
-    transform: translateY(50px);
+    transform: translateY(15px);
 }
-.logo{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 30px;
-}
-.logo img{
-    width: 65%;
-}
+
 .card{
-    margin-top: 10px;
     text-align: center;
 }
 
@@ -28,7 +19,7 @@
     margin-right: 5px;
 }
 mat-form-field{
-    width: 80%;
+    width: 90%;
 }
 .icon-user{
     transform: translateY(-10px);
@@ -48,7 +39,7 @@ mat-form-field{
 }
 
 h1{
-    color: black;
+    color: maroon;
 }
 
 h3{
@@ -74,5 +65,5 @@ button{
 }
 button:hover{
     transform: translateY(1.5px);
-    transition:.3 ease-in-out;
+    transition: 1 ease-in-out;
 }

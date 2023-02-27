@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GoogleMap, MapDirectionsService } from '@angular/google-maps';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -13,7 +13,6 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { DestinoDeCargaService } from 'src/app/services/destinoDeCarga.service';
 import { DestinoDeDescargaService } from 'src/app/services/destinoDeDescarga.service';
 import { OrdenDeCargaService } from 'src/app/services/orden-de-carga.service';
-
 
 interface Mercaderia {
   value: string,
@@ -48,8 +47,12 @@ export class AgregarEditarOrdenDeCargaComponent implements OnInit {
   destinosDeCargas : DestinoDeCarga[] = [];
   destinosDeDescargas : DestinoDeDescarga[] = [];
   operacion: string = 'Agregar';
-  destinoDeCarga: DestinoDeCarga;
-  destinoDeDescarga: DestinoDeDescarga;
+  markerCarga: google.maps.Marker;
+  markerDescarga: google.maps.Marker;
+  destinoCarga: DestinoDeCarga;
+  destinoDescarga: DestinoDeDescarga;
+  directionsDisplay: any;
+  ordenDeCarga: OrdenDeCarga;
 
   map: google.maps.Map;
   @ViewChild('mapRef', { static: true }) mapRef: ElementRef
@@ -86,6 +89,83 @@ export class AgregarEditarOrdenDeCargaComponent implements OnInit {
 
   }
 
+  updateMarkerCarga(event: MatAutocompleteSelectedEvent) {
+    if (this.markerCarga) {
+      this.markerCarga.setMap(null);
+    }
+
+    this.destinoCarga = event.option.value;
+    const lat = this.destinoCarga.latitud;
+    const lng = this.destinoCarga.longitud;
+
+    this.markerCarga = new google.maps.Marker({
+     position: { lat, lng },
+     map: this.map,
+     title: this.destinoCarga.nombreEstablecimiento
+    });
+
+    this.map.setCenter({ lat, lng });
+
+    this.mostrarRuta();
+  }
+
+  updateMarkerDescarga(event: MatAutocompleteSelectedEvent){
+    if (this.markerDescarga) {
+      this.markerDescarga.setMap(null);
+    }
+      
+    this.destinoDescarga = event.option.value;
+    const lat = this.destinoDescarga.latitud;
+    const lng = this.destinoDescarga.longitud;
+
+    this.markerDescarga = new google.maps.Marker({
+      position: { lat, lng },
+      map: this.map,
+      title: this.destinoDescarga.nombreEstablecimiento
+    });
+
+    this.map.setCenter({ lat, lng });
+
+    this.mostrarRuta();
+  }
+  
+  mostrarRuta() {
+    
+    if (this.directionsDisplay) {
+      this.directionsDisplay.setMap(null);
+      this.directionsDisplay = null;
+    }
+
+    if (this.markerCarga && this.markerDescarga) {
+      const directionsService = new google.maps.DirectionsService();
+      const start = this.markerCarga.getPosition();
+      const end = this.markerDescarga.getPosition();
+      const request = {
+        origin: start,
+        destination: end,
+        travelMode: google.maps.TravelMode.DRIVING
+      };
+      
+      directionsService.route(request, (result, status) => {
+        if (status === 'OK') {
+          this.directionsDisplay = new google.maps.DirectionsRenderer();
+          this.directionsDisplay.setMap(this.map);
+          this.directionsDisplay.setDirections(result);
+          const bounds = new google.maps.LatLngBounds();
+          bounds.extend(start);
+          bounds.extend(end);
+          this.map.fitBounds(bounds);
+
+          const distance = google.maps.geometry.spherical.computeDistanceBetween(start, end);
+          this.distanciaMarkers(result.routes[0].legs[0].distance.value / 1000);
+        }
+      });
+    }
+  }
+
+  distanciaMarkers(distanciaMetros: number){
+    this.form.get('distanciaViaje').setValue(Math.round(distanciaMetros));
+  }
 
   ngAfterViewInit(){
 
@@ -121,18 +201,7 @@ export class AgregarEditarOrdenDeCargaComponent implements OnInit {
 
   }
 
-  selectedDestinoDeCarga(event: MatAutocompleteSelectedEvent){
-    this.destinoDeCarga = event.option.value;
-    const map = new google.maps.Map(document.getElementById('mapRef'), {
-      zoom: 8,
-      center: {lat: this.destinoDeCarga.latitud, lng: this.destinoDeCarga.longitud}
-    })
-    new google.maps.Marker({
-      position: { lat: this.destinoDeCarga.latitud, lng: this.destinoDeCarga.longitud},
-      map: map
-    });
-  }
-
+ 
   loadClientes(query = ''){
     this._clienteService.getClientes(query).subscribe({
       next: response =>{

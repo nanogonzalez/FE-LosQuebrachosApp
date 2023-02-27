@@ -28,8 +28,6 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {FormsModule} from '@angular/forms';
 
-
-
 @NgModule({
   declarations: [],
   imports: [
@@ -57,6 +55,7 @@ import {FormsModule} from '@angular/forms';
     MatSelectModule,
     MatAutocompleteModule,
     FormsModule
+ 
   ],
   exports: [
     BrowserAnimationsModule,
@@ -82,6 +81,7 @@ import {FormsModule} from '@angular/forms';
     MatSelectModule,
     MatAutocompleteModule,
     FormsModule
+
   ]
 })
 export class SharedModule { }

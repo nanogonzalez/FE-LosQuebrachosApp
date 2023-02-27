@@ -1,0 +1,46 @@
+
+<div class="container">
+
+    <mat-card class="card mat-elevation-z8">
+
+        <div class="logo">
+            <img src="assets/images/IMG_8665.jpg">
+        </div>
+
+        <h2>Crea tu nueva contraseña</h2>
+
+        <form [formGroup]="form">
+            <mat-grid-list cols="1" rowHeight="80px">
+                <mat-grid-tile>
+                    <mat-icon class="icon-lock">lock</mat-icon>
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label>Contraseña:</mat-label>
+                        <input [type]="type" formControlName="password" matInput autocomplete="off">
+                    </mat-form-field>
+                    <mat-icon (click)="hideShowPass()" class="icon-visibility">{{eyeIcon}}</mat-icon>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-icon class="icon-lock">lock</mat-icon>
+                    <mat-form-field class="form-field-pass" appearance="outline">
+                        <mat-label>Confirmar contraseña:</mat-label>
+                        <input [type]="typeConfirm" formControlName="confirmPassword" matInput autocomplete="off">
+                    </mat-form-field>
+                    <mat-icon (click)="hideShowPassConfirm()" class="icon-visibility">{{eyeIconConfirm}}</mat-icon>
+                </mat-grid-tile>    
+              </mat-grid-list>
+              <small *ngIf="form.hasError('confirmPasswordValidator','confirmPassword')">*Las contraseñas no coinciden*</small>
+              <div class="btns">
+                <div class="submit">
+                    <button class="cancel" routerLink="/login" type="submit" mat-raised-button>Cancelar</button>
+                </div>
+                <div class="submit">
+                    <button (click)="reset()" [disabled]="form.invalid" type="submit" mat-raised-button>Enviar</button>
+                </div>
+              </div>
+           
+        </form>
+    </mat-card>
+</div>
+
+
+
